@@ -11,7 +11,8 @@ import {
     Text,
     AppState,
     ListView,
-    RefreshControl
+    RefreshControl,
+    TextInput
 } from 'react-native';
 
 import BaseComponent from '../component/BaseComponent';
@@ -26,17 +27,20 @@ import PostInfoScene from "./PostInfoScene";
 import * as Urls from "../constant/appUrls";
 import NavigationView from '../component/AllNavigationView';
 import {request} from "../utils/RequestUtil";
-import  LoadMoreFooter from '../component/LoadMoreFooter';
+import LoadMoreFooter from '../component/LoadMoreFooter';
+import StorageUtil from "../utils/StorageUtil";
+import * as StorageKeyNames from "../constant/storageKeyNames";
 
 export default class FindPostListScene extends BaseComponent {
 
     constructor(props) {
         super(props);
         this.allList = [];
-        this.findTag=['昆山富士康','昆山富士康','昆山富士康','昆山富士康'];
+        this.findTag = [];
         this.pageIndex = 1;
         this.pageSize = 10;
-        this.allPage=0;
+        this._mixField = '';
+        this.allPage = 0;
         this.state = {
             source: [],
             renderPlaceholderOnly: 'success',
@@ -46,74 +50,174 @@ export default class FindPostListScene extends BaseComponent {
     }
 
     initFinish = () => {
-        this.setState({renderPlaceholderOnly:'success'});
-        // let names = '';
-        // if(this.props.name=='好工作'&&this.state.showType=='all'){
-        //     names = '';
-        // }else{
-        //     names = this.props.name;
-        // }
-        // let maps = {
-        //     name: names,
-        //     pageIndex: this.pageIndex,
-        //     pageSize: this.pageSize
-        // };
-        // request(Urls.JOBS, 'Post', maps)
-        //     .then((response) => {
-        //             console.log(response);
-        //             this.allList.push(...response.mjson.data.content);
-        //             this.allPage=response.mjson.data.totalPages;
-        //             const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        //             this.setState({source: ds.cloneWithRows(this.allList),
-        //                 renderPlaceholderOnly:'success',isRefreshing:false});
-        //         },
-        //         (error) => {
-        //             this.setState({renderPlaceholderOnly: 'error'});
-        //         });
+        StorageUtil.mGetItem(StorageKeyNames.FIND, (data) => {
+            if (data.code == 1) {
+                let jsons = data.result;
+                if (!this.isNull(jsons)) {
+                    this.findTag = JSON.parse(jsons);
+                }
+            }
+            this.setState({renderPlaceholderOnly: 'success'});
+        })
+
+    }
+
+    getData = () => {
+
+        this.props.screenProps.showModal(true);
+        let maps = {
+            pageIndex: this.pageIndex,
+            pageSize: this.pageSize,
+            _mixField: this._mixField
+        };
+        request(Urls.JOBS, 'Post', maps)
+            .then((response) => {
+                    this.props.screenProps.showModal(false);
+                    console.log(response);
+                    this.allList.push(...response.mjson.data.content);
+                    this.allPage = response.mjson.data.totalPages;
+                    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+                    this.setState({
+                        source: ds.cloneWithRows(this.allList),
+                        renderPlaceholderOnly: 'success', isRefreshing: false
+                    });
+                },
+                (error) => {
+                    this.props.screenProps.showModal(false);
+                    this.setState({renderPlaceholderOnly: 'error'});
+                });
     }
 
     render() {
         if (this.state.renderPlaceholderOnly != 'success') {
             return this._renderPlaceholderView();
         }
-        let itemList=[]
-        for(let i=0;i<this.findTag.length;i++){
-            itemList.push(
-                <TouchableOpacity key={i+'ttt'} style={{
-                    marginLeft:Pixel.getPixel(15),
-                }}>
-                    <Text style={{
-                        fontSize:Pixel.getPixel(fontAndColor.LITTLEFONT26),
-                        color:'#000',
-                        textDecorationLine:'underline'
-                    }}>{this.findTag[i]}</Text>
-                </TouchableOpacity>
+
+        let topitemList = [];
+        let bottomList = [];
+        let parentList = [];
+        let rList = this.findTag;
+        for (let i = 0; i < rList.length; i++) {
+            if (i > 3) {
+                bottomList.push(
+                    <TouchableOpacity onPress={()=>{
+                        this.pageIndex = 1;
+                        this.pageSize = 10;
+                        this.allList = [];
+                        this._mixField=rList[i];
+                        this.getData();
+                    }} key={i + 'ttt'} style={{
+                        marginLeft: Pixel.getPixel(15),
+                    }}>
+                        <Text style={{
+                            fontSize: Pixel.getPixel(fontAndColor.LITTLEFONT26),
+                            color: '#000',
+                            textDecorationLine: 'underline'
+                        }}>{rList[i]}</Text>
+                    </TouchableOpacity>
                 );
+            } else {
+                topitemList.push(
+                    <TouchableOpacity onPress={()=>{
+                        this.pageIndex = 1;
+                        this.pageSize = 10;
+                        this.allList = [];
+                        this._mixField=rList[i];
+                        this.getData();
+                    }} key={i + 'ttt'} style={{
+                        marginLeft: Pixel.getPixel(15),
+                    }}>
+                        <Text style={{
+                            fontSize: Pixel.getPixel(fontAndColor.LITTLEFONT26),
+                            color: '#000',
+                            textDecorationLine: 'underline'
+                        }}>{rList[i]}</Text>
+                    </TouchableOpacity>
+                );
+            }
+
+        }
+        parentList.push(<View style={{
+            width: width - Pixel.getPixel(30),
+            marginTop: Pixel.getPixel(15), flexDirection: 'row'
+        }} key={'top'}>
+            {topitemList.reverse()}
+        </View>);
+        if (this.findTag.length > 4) {
+            parentList.push(<View style={{
+                width: width - Pixel.getPixel(30),
+                marginTop: Pixel.getPixel(10), flexDirection: 'row',
+            }} key={'bottom'}>
+                {bottomList.reverse()}
+            </View>);
         }
         return (<View style={{flex: 1, backgroundColor: '#fff'}}>
-            <View onPress={()=>{
+            <View onPress={() => {
                 this.props.findBack();
-            }} style={{marginTop:Pixel.getTitlePixel(69),width:width-Pixel.getPixel(35),
-                height:Pixel.getPixel(35),backgroundColor:'#fff',flexDirection:'row',marginLeft:Pixel.getPixel(15)}}>
-                <View style={{flex:8,justifyContent:'center',paddingLeft:Pixel.getPixel(5),borderWidth:1,
-                    borderColor:fontAndColor.COLORA4,borderRadius:3}}>
-                    <Text style={{fontSize:Pixel.getPixel(fontAndColor.LITTLEFONT28),
-                        color:'#000'}}>查找你感兴趣的岗位</Text>
+            }} style={{
+                marginTop: Pixel.getTitlePixel(69),
+                width: width - Pixel.getPixel(35),
+                height: Pixel.getPixel(35),
+                backgroundColor: '#fff',
+                flexDirection: 'row',
+                marginLeft: Pixel.getPixel(15)
+            }}>
+                <View style={{
+                    flex: 8, justifyContent: 'center', paddingLeft: Pixel.getPixel(5), borderWidth: 1,
+                    borderColor: fontAndColor.COLORA4, borderRadius: 3
+                }}>
+                    <TextInput
+                        onChangeText={(text) => {
+                            this._mixField = text;
+                        }}
+                        style={{
+                            //backgroundColor: 'transparent',
+                            textAlign: 'center',
+                            fontSize: Pixel.getFontPixel(fontAndColor.LITTLEFONT28),
+                            color: '#000',
+                            padding: 0,
+                            flex: 1,
+                            textAlign: 'left'
+                        }}
+                        placeholder='查找你感兴趣的岗位'
+                        underlineColorAndroid="transparent"
+                    />
                 </View>
-                <View style={{flex:1,justifyContent:'center',paddingRight:Pixel.getPixel(5)}}>
-                    <Image style={{width: Pixel.getPixel(25), height: Pixel.getPixel(25),
-                    marginLeft:Pixel.getPixel(5)}}
+                <TouchableOpacity onPress={() => {
+                    let cando = true;
+                    for (let i = 0; i < this.findTag.length; i++) {
+                        if (this.findTag[i] == this._mixField) {
+                            cando = false;
+                        }
+                    }
+                    if (cando) {
+                        if (this.findTag.length >= 8) {
+                            this.findTag.splice(0,1);
+                            this.findTag.push(this._mixField);
+                        } else {
+                            this.findTag.push(this._mixField);
+                        }
+                        StorageUtil.mSetItem(StorageKeyNames.FIND, JSON.stringify(this.findTag));
+                    }
+                    this.pageIndex = 1;
+                    this.pageSize = 10;
+                    this.allList = [];
+                    this.getData();
+                }} style={{flex: 1, justifyContent: 'center', paddingRight: Pixel.getPixel(5)}}>
+                    <Image style={{
+                        width: Pixel.getPixel(25), height: Pixel.getPixel(25),
+                        marginLeft: Pixel.getPixel(5)
+                    }}
                            source={require('../../images/findIcon.png')}/>
-                </View>
+                </TouchableOpacity>
             </View>
-            <Text style={{fontSize:Pixel.getPixel(fontAndColor.LITTLEFONT28),
-                color:'#000',fontWeight:'bold',marginTop:Pixel.getPixel(15),
-                marginLeft:Pixel.getPixel(15)}}>最新查找</Text>
-            <View style={{width:width-Pixel.getPixel(30),
-                marginTop:Pixel.getPixel(15), flexDirection:'row'}}>
-                {itemList}
-            </View>
-            {this.allList.length<=0?<View></View>:
+            <Text style={{
+                fontSize: Pixel.getPixel(fontAndColor.LITTLEFONT28),
+                color: '#000', fontWeight: 'bold', marginTop: Pixel.getPixel(15),
+                marginLeft: Pixel.getPixel(15)
+            }}>最新查找</Text>
+            {parentList.reverse()}
+            {this.allList.length <= 0 ? <View></View> :
                 <ListView
                     removeClippedSubviews={false}
                     dataSource={this.state.source}
@@ -157,18 +261,18 @@ export default class FindPostListScene extends BaseComponent {
         } else {
             if (this.pageIndex < this.allPage) {
                 this.page++;
-                this.initFinish();
+                this.getData();
             }
         }
 
     };
 
     refreshingData = () => {
-        this.setState({isRefreshing: true},()=>{
-            this.allList=[];
-            this.pageIndex=1;
-            this.pageSize=10;
-            this.initFinish();
+        this.setState({isRefreshing: true}, () => {
+            this.allList = [];
+            this.pageIndex = 1;
+            this.pageSize = 10;
+            this.getData();
         });
 
     };
@@ -189,18 +293,15 @@ export default class FindPostListScene extends BaseComponent {
         return (<View key={sectionId + rowId} style={{width: width, height: 1, backgroundColor: '#00000000'}}></View>)
     }
     _renderRow = (movie, sectionId, rowId) => {
-        if(movie==1123){
-            return<View></View>
-        }else{
+        if (movie == 1123) {
+            return <View></View>
+        } else {
             let name = this.props.name;
-            if (this.props.tabLabel == 'ios-paper' && this.state.showType == 'all') {
-                name = '全部'
-            }
             return (<PostListItem data={movie} callBack={() => {
                 this.toNextPage({
                     name: 'PostInfoScene',
                     component: PostInfoScene,
-                    params: {id:movie.id,name:movie.jobTypeStr}
+                    params: {id: movie.id, name: movie.jobTypeStr}
                 })
             }
             } name={name}/>)

@@ -29,8 +29,8 @@ export default class MyNavigator extends Component {
                     if (route.component) {
                         setAll(navigator);
                         return <Component {...route.params} navigator={navigator}
-                                          showToast={(content)=>{this.props.showToast(content);}}
-                                          showModal={(value)=>{this.props.showModal(value);}}
+                                          showToast={(content)=>{this.props.screenProps.showToast(content);}}
+                                          showModal={(value)=>{this.props.screenProps.showModal(value);}}
                                           showLoginModal={this.props.showLoginModal}/>
                     }
                 }}>

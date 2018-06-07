@@ -28,16 +28,17 @@ export default class PostInfoEightItem extends PureComponent {
     }
 
     render() {
+        let that = this;
         return (
             <View style={{
                 width: width - Pixel.getPixel(30), marginTop: Pixel.getPixel(20),
                 justifyContent: 'center', alignItems: 'center',
                 marginLeft: Pixel.getPixel(15),height:Pixel.getPixel(200),
             }}>
-                <MapView style={{flex:1}}
+                <MapView style={{ width: width - Pixel.getPixel(30),height:Pixel.getPixel(200)}}
                          coordinate={{
-                             latitude: 31.280516,
-                             longitude: 120.937104,
+                             latitude:this.props.data.company.latitude,
+                             longitude: this.props.data.company.longitude
                          }}
                          zoomLevel={18}
                          tilt={45}
@@ -45,8 +46,8 @@ export default class PostInfoEightItem extends PureComponent {
                     <MapView.Marker
                         color='red'
                         coordinate={{
-                            latitude: 31.280516,
-                            longitude: 120.937104,
+                            latitude: this.props.data.company.latitude,
+                            longitude: this.props.data.company.longitude
                         }}
                     />
                 </MapView>

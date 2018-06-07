@@ -44,17 +44,32 @@ export default class MainScene extends BaseComponent {
     }
 
     initFinish = () => {
+        console.log('finishi');
         let names = '';
         if(this.props.name=='好工作'&&this.state.showType=='all'){
             names = '';
         }else{
-            names = this.props.name;
+            if(this.props.name=='好工作'){
+                names = 'HGZ';
+            }else if(this.props.name=='高返费'){
+                names = 'GFF';
+            }else if(this.props.name=='小时工'){
+                names = 'XSG';
+            }else{
+                names = 'JQG';
+            }
         }
         let maps = {
-            name: names,
+            jobType: names,
             pageIndex: this.pageIndex,
             pageSize: this.pageSize
         };
+        if(names==''){
+            maps = {
+                pageIndex: this.pageIndex,
+                pageSize: this.pageSize
+            };
+        }
         request(Urls.JOBS, 'Post', maps)
             .then((response) => {
                     console.log(response);
@@ -150,9 +165,6 @@ export default class MainScene extends BaseComponent {
     }
     _renderRow = (movie, sectionId, rowId) => {
         let name = this.props.name;
-        if (this.props.tabLabel == 'ios-paper' && this.state.showType == 'all') {
-            name = '全部'
-        }
         return (<PostListItem data={movie} callBack={() => {
             this.props.toNextPage({
                 name: 'PostInfoScene',

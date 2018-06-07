@@ -22,14 +22,7 @@ class Confirm extends Component {
 			flag: false
 		};
 	}
-	static propTypes = {
-		btnLeftText: PropTypes.string,
-		btnRightText: PropTypes.string,
-		leftFunc: PropTypes.func,
-		rightFunc: PropTypes.func,
-		title: PropTypes.string.isRequired,
-		msg: PropTypes.string.isRequired
-	};
+
 	static defaultProps = {
 		btnLeftText: '取消',
 		btnRightText: '确定',

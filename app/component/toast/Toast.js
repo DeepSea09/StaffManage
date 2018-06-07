@@ -46,11 +46,7 @@ class Toast extends Component {
         msg: '提示信息',
         timeout: 2000
     };
-    static propTypes = {
-        type: PropTypes.oneOf(['success', 'info', 'help', 'warning', 'wrong']).isRequired, //类型
-        msg: PropTypes.string.isRequired, //提示信息
-        timeout: PropTypes.number //关闭时间，默认2000毫秒
-    }
+
 
     componentWillUnmount() {
         this.timer && clearTimeout(this.timer);

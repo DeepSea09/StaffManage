@@ -34,7 +34,7 @@ export  default class WoDeItem extends PureComponent {
                 <View style={{flex:1, flexDirection:'row',alignItems:'center'}}>
                     <Image source={this.props.data.left} style={{
                         width:Pixel.getPixel(25),height:Pixel.getPixel(25),
-                        marginLeft:Pixel.getPixel(15)
+                        marginLeft:Pixel.getPixel(15),resizeMode:'stretch'
                     }}></Image>
                     <Text style={{fontSize:Pixel.getPixel(fontAndColor.LITTLEFONT28),
                     color:'#000',fontWeight:'bold',marginLeft:Pixel.getPixel(15)}}>{this.props.data.name}</Text>

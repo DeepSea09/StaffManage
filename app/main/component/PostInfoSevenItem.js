@@ -35,7 +35,9 @@ export default class PostInfoSevenItem extends PureComponent {
                 justifyContent: 'center', alignItems: 'center', flexDirection: 'row',
                 marginLeft: Pixel.getPixel(15)
             }}>
-                <View style={{
+                <TouchableOpacity onPress={()=>{
+                    this.props.telBack();
+                }} style={{
                     width: Pixel.getPixel(110), height: Pixel.getPixel(35),
                     backgroundColor: 'red', borderRadius: 10,
                     marginBottom: Pixel.getPixel(20),
@@ -45,7 +47,7 @@ export default class PostInfoSevenItem extends PureComponent {
                         fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
                         color: '#fff'
                     }}>电话联系</Text>
-                </View>
+                </TouchableOpacity>
                 <TouchableOpacity onPress={() => {
                     this.props.callBack();
                 }} style={{

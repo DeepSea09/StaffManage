@@ -69,6 +69,7 @@ export default class TuiJianGongYouScene extends BaseComponent {
                             component: TongXunLuScene,
                             params: {personData:json}})
                        console.log(json);
+                        console.log('--------------');
                     });
                 }
             }} style={{

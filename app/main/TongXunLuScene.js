@@ -30,10 +30,9 @@ export default class TongXunLuScene extends BaseComponent {
 
     constructor(props) {
         super(props);
-        this.allData = JSON.parse(this.props.personData);
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            source: ds.cloneWithRows(JSON.parse(this.props.personData)),
+            source: ds.cloneWithRows(JSON.parse(this.props.navigation.state.params.personData)),
             renderPlaceholderOnly: 'success'
         };
     }
@@ -98,18 +97,18 @@ export default class TongXunLuScene extends BaseComponent {
                 params: {}
             });
         } else {
-            this.props.showModal(true);
+            this.props.screenProps.showModal(true);
             let maps = {
                 id: this.allData.id
             };
             request(Urls.APPLY, 'Post', maps)
                 .then((response) => {
                         console.log(response);
-                        this.props.showModal(false);
+                        this.props.screenProps.showModal(false);
                         this.refs.postpow.changeShow('申请成功');
                     },
                     (error) => {
-                        this.props.showModal(false);
+                        this.props.screenProps.showModal(false);
                         this.refs.postpow.changeShow('申请失败');
                     });
         }

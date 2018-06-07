@@ -57,7 +57,7 @@ export default class AllNavigationView extends Component {
                     alignItems: 'center',}}>
                      <TouchableOpacity style={{width: Pixel.getPixel(80), height: Pixel.getPixel(44),justifyContent:'center'}}
                                       onPress={backIconClick}>
-                    {backIconClick && <Image style={styles.backIcon} source={require('../../images/backimage.png')}/>}
+                    {backIconClick && <Image style={styles.backIcon} source={require('../../images/title_back.png')}/>}
                      </TouchableOpacity>
                     <Text allowFontScaling={false}  style={styles.titleText}>{title}</Text>
                     <View style={styles.imageFoot}>
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
     backIcon: {
 
         marginLeft: Pixel.getPixel(12),
-        height: Pixel.getPixel(20),
-        width: Pixel.getPixel(20),
+        height: Pixel.getPixel(22),
+        width: Pixel.getPixel(14),
         resizeMode:'stretch'
     },
 

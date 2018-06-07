@@ -10,7 +10,8 @@ import {
     InteractionManager,
     Text,
     AppState,
-    ListView
+    ListView,
+    Linking
 } from 'react-native';
 
 import BaseComponent from '../component/BaseComponent';
@@ -50,7 +51,7 @@ export default class MainScene extends BaseComponent {
 
     initFinish = () => {
         let maps = {
-            id: this.props.id
+            id: this.props.navigation.state.params.id
         };
         request(Urls.DETAIL, 'Post', maps)
             .then((response) => {
@@ -76,7 +77,7 @@ export default class MainScene extends BaseComponent {
                 style={{marginTop: Pixel.getTitlePixel(64)}}
             />
             <NavigationView
-                title={"企业岗位详情--" + this.props.name}
+                title={"企业岗位详情--" + this.props.navigation.state.params.name}
                 backIconClick={this.backPage}
             />
             <PostPow ref='postpow'/>
@@ -88,7 +89,7 @@ export default class MainScene extends BaseComponent {
             <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
                 {this.loadView()}
                 <NavigationView
-                    title={"企业岗位详情--" + this.props.name}
+                    title={"企业岗位详情--" + this.props.navigation.state.params.name}
                     backIconClick={this.backPage}
                 />
             </View>
@@ -101,18 +102,18 @@ export default class MainScene extends BaseComponent {
                 component: LoginScene,
                 params: {}});
         }else{
-            this.props.showModal(true);
+            this.props.screenProps.showModal(true);
             let maps = {
                 id: this.allData.id
             };
             request(Urls.APPLY, 'Post', maps)
                 .then((response) => {
                         console.log(response);
-                        this.props.showModal(false);
+                        this.props.screenProps.showModal(false);
                         this.refs.postpow.changeShow('申请成功');
                     },
                     (error) => {
-                        this.props.showModal(false);
+                        this.props.screenProps.showModal(false);
                         this.refs.postpow.changeShow('申请失败');
                     });
         }
@@ -131,14 +132,17 @@ export default class MainScene extends BaseComponent {
         } else if (rowId == 5) {
             return (<PostInfoSixItem data={this.allData}/>);
         } else if (rowId == 6) {
-            return (<PostInfoEightItem/>);
+            return (<PostInfoEightItem data={this.allData}/>);
 
         } else if (rowId == 7) {
+            return (<PostInfoNiveItem/>);
+
+        }else if (rowId == 8) {
             return (<PostInfoSevenItem callBack={() => {
                 this.sendPost();
+            }} telBack={()=>{
+                Linking.openURL('tel:' + '0512-57256116');
             }} data={this.allData}/>);
-        }else if (rowId == 8) {
-            return (<PostInfoNiveItem/>);
         }else {
             return (<PostInfoTwoItem data={this.allData}/>);
         }

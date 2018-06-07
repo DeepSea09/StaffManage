@@ -11,12 +11,13 @@ import {
     Dimensions,
     Image,
     Text,
+    BackHandler
 } from "react-native";
 import Pixel from "../utils/PixelUtil";
 import * as fontAndColor from "../constant/fontAndColor";
 import MyButton from "./MyButton";
 const {width, height} = Dimensions.get('window');
-
+import { NavigationActions } from 'react-navigation'
 let dismissKeyboard = require('dismissKeyboard')
 
 export default class BaseComponent extends Component {
@@ -26,25 +27,37 @@ export default class BaseComponent extends Component {
      * 监听回退键
      **/
     handleBack = () => {
-        this.props.navigation.goBack();
+        this.backPage()
         return true;
     }
 
     componentDidMount() {
         // InteractionManager.setDeadline(500);
         try {
-            BackAndroid.addEventListener('hardwareBackPress', this.handleBack);
+            BackHandler.addEventListener('hardwareBackPress', this.handleBack);
         } catch (e) {
 
         } finally {
             InteractionManager.runAfterInteractions(() => {
-            this.setState({renderPlaceholderOnly: 'loading'});
             this.initFinish();
             });
         }
 
 
     }
+
+
+    placePage = (name)=> {
+        const { dispatch } = this.props.navigation;
+        const resetAction = NavigationActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({ routeName: name})
+            ]
+        });
+        dispatch(resetAction)
+    };
+
 
     initFinish() {
 
@@ -62,7 +75,7 @@ export default class BaseComponent extends Component {
         //     })
         // }
         const { navigate } = this.props.navigation;
-        navigate(mProps.name,mProps.params)
+        navigate(mProps.name,{...mProps.params})
     }
 
     /**
@@ -100,16 +113,20 @@ export default class BaseComponent extends Component {
     }
 
     backToLogin = (mProps) => {
-        const navigator = this.props.navigator;
-        if (navigator) {
-            navigator.immediatelyResetRouteStack([{
-                ...mProps
-            }])
-        }
+
     }
 
     backPage = () => {
-        this.props.navigation.goBack();
+        let routes = this.props.screenProps.getRoute();
+        if(routes[routes.length - 1].routeName === 'FunctionScene'){
+            BackHandler.exitApp();
+        }else{
+            const { dispatch } = this.props.navigation;
+            const backAction = NavigationActions.back({
+                key: null
+            });
+            dispatch(backAction);
+        }
     }
 
     backToTop = () => {
