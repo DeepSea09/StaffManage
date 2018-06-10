@@ -48,3 +48,18 @@ export const MYWAGE = BASEURL+'api/recruit/my/wage';
  * 我的
  */
 export const MYINFO = BASEURL+'api/recruit/my/info';
+
+/**
+ * 我的推荐
+ */
+export const RECOMMEND = BASEURL+'api/recruit/my/recommend';
+
+/**
+ * 我的客服
+ */
+export const MYKF = BASEURL+'api/recruit/my/kf';
+
+/**
+ * 推荐
+ */
+export const EMPLOYEERECOMMEND = BASEURL+'api/recruit/employee/recommend';

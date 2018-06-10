@@ -260,7 +260,7 @@ export default class FindPostListScene extends BaseComponent {
 
         } else {
             if (this.pageIndex < this.allPage) {
-                this.page++;
+                this.pageIndex++;
                 this.getData();
             }
         }

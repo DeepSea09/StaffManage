@@ -27,7 +27,7 @@ import TuiJianGongYouScene from "./TuiJianGongYouScene";
 import * as Urls from "../constant/appUrls";
 import {request} from "../utils/RequestUtil";
 
-export default class MineInviScene extends BaseComponent {
+export default class ChildMineInviScene extends BaseComponent {
 
     constructor(props) {
         super(props);
@@ -65,6 +65,7 @@ export default class MineInviScene extends BaseComponent {
             />
             <NavigationView
                 title="我的推荐"
+                backIconClick={this.backPage}
             />
         </View>)
     }
@@ -75,6 +76,7 @@ export default class MineInviScene extends BaseComponent {
                 {this.loadView()}
                 <NavigationView
                     title={"我的推荐"}
+                    backIconClick={this.backPage}
                 />
             </View>
         );
@@ -102,7 +104,7 @@ export default class MineInviScene extends BaseComponent {
                                   }}/>
                     <View style={{width: width, height: 1, backgroundColor: fontAndColor.COLORA3}}></View>
                     <TouchableOpacity onPress={() => {
-                        this.props.toNextPage({
+                        this.toNextPage({
                             name: 'TuiJianGongYouScene',
                             component: TuiJianGongYouScene,
                             params: {}

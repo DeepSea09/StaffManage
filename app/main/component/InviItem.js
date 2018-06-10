@@ -32,17 +32,17 @@ export  default class WoDeItem extends PureComponent {
                <View style={[{flex:1,borderWidth:1,borderColor:fontAndColor.COLORA3,
                alignItems:'center',justifyContent:'center',borderRightWidth:0},this.props.show?{}:{borderTopWidth:0}]}>
                    <Text style={{fontSize:Pixel.getPixel(fontAndColor.LITTLEFONT28),
-                       color:'#000'}}>{this.props.data.name}</Text>
+                       color:'#000'}}>{this.props.number}</Text>
                </View>
-                <View style={[{flex:3,borderWidth:1,borderColor:fontAndColor.COLORA3,
+                <View style={[{flex:1,borderWidth:1,borderColor:fontAndColor.COLORA3,
                     alignItems:'center',justifyContent:'center',borderRightWidth:0},this.props.show?{}:{borderTopWidth:0}]}>
                     <Text style={{fontSize:Pixel.getPixel(fontAndColor.LITTLEFONT28),
-                        color:'#000'}}>{this.props.data.content}</Text>
+                        color:'#000'}}>{this.props.data.name}</Text>
                 </View>
-                <View style={[{flex:2,borderWidth:1,borderColor:fontAndColor.COLORA3,
+                <View style={[{flex:3,borderWidth:1,borderColor:fontAndColor.COLORA3,
                     alignItems:'center',justifyContent:'center'},this.props.show?{}:{borderTopWidth:0}]}>
                     <Text style={{fontSize:Pixel.getPixel(fontAndColor.LITTLEFONT28),
-                        color:'#000'}}>{this.props.data.left}</Text>
+                        color:'#000'}}>{this.props.data.creator}</Text>
                 </View>
             </View>
         );

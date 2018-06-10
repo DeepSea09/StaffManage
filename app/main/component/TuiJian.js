@@ -29,7 +29,7 @@ export  default class TuiJian extends PureComponent {
     render() {
         return (
             <TouchableOpacity onPress={()=>{
-                this.props.callBack();
+
             }} style={{width: width,height:Pixel.getPixel(50),
             flexDirection:'row'}}>
                 <View style={{flex:1, flexDirection:'row',alignItems:'center'}}>
@@ -43,6 +43,7 @@ export  default class TuiJian extends PureComponent {
                 <View style={{flex:2, flexDirection:'row',alignItems:'center'}}>
                     <TextInput
                         onChangeText={(text) => {
+                            this.props.callBack(text);
                         }}
                         style={{
                             //backgroundColor: 'transparent',

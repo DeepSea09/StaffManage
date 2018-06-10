@@ -34,16 +34,18 @@ export  default class WoDeItem extends PureComponent {
                    <Text style={{fontSize:Pixel.getPixel(fontAndColor.MARKFONT22),
                        color:'#000'}}>{this.props.number}</Text>
                </View>
-                <View style={[{flex:25,borderWidth:1,borderColor:fontAndColor.COLORA3,
+                <TouchableOpacity onPress={()=>{
+                    this.props.callBack();
+                }} style={[{flex:25,borderWidth:1,borderColor:fontAndColor.COLORA3,
                     alignItems:'center',justifyContent:'center',borderRightWidth:0},this.props.show?{}:{borderTopWidth:0}]}>
                     <Text style={{fontSize:Pixel.getPixel(fontAndColor.MARKFONT22),
                         color:'#000'}}>{this.props.data.companyName}</Text>
-                </View>
-                <View style={[{flex:15,borderWidth:1,borderColor:fontAndColor.COLORA3,
-                    alignItems:'center',justifyContent:'center',borderRightWidth:0},this.props.show?{}:{borderTopWidth:0}]}>
-                    <Text style={{fontSize:Pixel.getPixel(fontAndColor.MARKFONT22),
-                        color:'#000'}}>{this.props.data.name}</Text>
-                </View>
+                </TouchableOpacity>
+                {/*<View style={[{flex:15,borderWidth:1,borderColor:fontAndColor.COLORA3,*/}
+                    {/*alignItems:'center',justifyContent:'center',borderRightWidth:0},this.props.show?{}:{borderTopWidth:0}]}>*/}
+                    {/*<Text style={{fontSize:Pixel.getPixel(fontAndColor.MARKFONT22),*/}
+                        {/*color:'#000'}}>{this.props.data.name}</Text>*/}
+                {/*</View>*/}
                 <View style={[{flex:15,borderWidth:1,borderColor:fontAndColor.COLORA3,
                     alignItems:'center',justifyContent:'center',borderRightWidth:0},this.props.show?{}:{borderTopWidth:0}]}>
                     <Text style={{fontSize:Pixel.getPixel(fontAndColor.MARKFONT22),

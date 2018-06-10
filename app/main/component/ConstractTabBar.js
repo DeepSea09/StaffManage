@@ -30,7 +30,7 @@ export default class ConstractTabBar extends PureComponent {
         this.props.tabs.map((tab, i) => {
             tabChild.push(<ChildTabView key={tab} goToPages={(i) => {
                 this.goToPages(i);
-                this.props.callBack();
+                this.props.callBack(this.props.tabName);
             }} tab={tab} i={i} tabName={this.props.tabName} activeTab={this.props.activeTab}/>);
         })
         return <View style={{height:Pixel.getPixel(120),justifyContent:'center',alignItems:'center',

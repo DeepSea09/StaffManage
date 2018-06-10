@@ -35,7 +35,7 @@ export default class PostInfoNiveItem extends PureComponent {
                 <WebView
                     ref="www"
                     style={{ width: width - Pixel.getPixel(30),height:Pixel.getPixel(200),}}
-                    source={{uri:'http://baishi.baidu.com/watch/8001213153987601498.html?frm=FuzzySearch&page=videoMultiNeed',method: 'GET'}}
+                    source={{uri:this.props.data.company.videoUrl,method: 'GET'}}
                     javaScriptEnabled={true}
                     domStorageEnabled={true}
                     scalesPageToFit={false}

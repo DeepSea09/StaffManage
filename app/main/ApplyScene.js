@@ -25,6 +25,8 @@ import NavigationView from '../component/AllNavigationView';
 import TrainItem from "./component/TrainItem";
 import * as Urls from "../constant/appUrls";
 import {request} from "../utils/RequestUtil";
+import TongXunLuScene from "./TongXunLuScene";
+import PostInfoScene from "./PostInfoScene";
 
 export default class MainScene extends BaseComponent {
 
@@ -150,14 +152,24 @@ export default class MainScene extends BaseComponent {
     _renderRow = (movie, sectionId, rowId) => {
         if (rowId == 0) {
             return (<View>
-                <TrainItem number={'序号'} data={{
+                <TrainItem callBack={()=>{}} number={'序号'} data={{
                     companyName: '工厂名称', name: '岗位名称',
                     jobTypeStr: '岗位分类', auditStatusStr: '是否成功'
                 }} show={true}></TrainItem>
-                <TrainItem number={parseInt(rowId) + 1} data={movie.job} show={false}></TrainItem>
+                <TrainItem callBack={()=>{
+                    this.toNextPage({
+                        name: 'PostInfoScene',
+                        component: PostInfoScene,
+                        params: {id:movie.jobId,name:''}})
+                }} number={parseInt(rowId) + 1} data={movie.job} show={false}></TrainItem>
             </View>);
         } else {
-            return (<TrainItem number={parseInt(rowId) + 1} data={movie.job} show={false}></TrainItem>)
+            return (<TrainItem callBack={()=>{
+                this.toNextPage({
+                    name: 'PostInfoScene',
+                    component: PostInfoScene,
+                    params: {id:movie.jobId,name:''}})
+            }} number={parseInt(rowId) + 1} data={movie.job} show={false}></TrainItem>)
         }
 
 

@@ -35,7 +35,7 @@ import PostPow from './component/PostPow';
 import LoginScene from '../login/LoginScene';
 import PostInfoEightItem from "./component/PostInfoEightItem";
 import PostInfoNiveItem from "./component/PostInfoNiveItem";
-export default class MainScene extends BaseComponent {
+export default class PostInfoScene extends BaseComponent {
 
     constructor(props) {
         super(props);
@@ -77,7 +77,7 @@ export default class MainScene extends BaseComponent {
                 style={{marginTop: Pixel.getTitlePixel(64)}}
             />
             <NavigationView
-                title={"企业岗位详情--" + this.props.navigation.state.params.name}
+                title={"企业岗位详情--" + this.allData.jobTypeStr}
                 backIconClick={this.backPage}
             />
             <PostPow ref='postpow'/>
@@ -135,7 +135,7 @@ export default class MainScene extends BaseComponent {
             return (<PostInfoEightItem data={this.allData}/>);
 
         } else if (rowId == 7) {
-            return (<PostInfoNiveItem/>);
+            return (<PostInfoNiveItem data={this.allData}/>);
 
         }else if (rowId == 8) {
             return (<PostInfoSevenItem callBack={() => {

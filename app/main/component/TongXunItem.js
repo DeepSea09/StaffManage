@@ -23,7 +23,7 @@ export default class TongXunItem extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            select: this.props.data.select
+            select: false
         };
     }
 
@@ -33,7 +33,7 @@ export default class TongXunItem extends PureComponent {
                 this.setState({
                     select: !this.state.select
                 }, () => {
-                    this.props.callBack(this.state.select);
+                    this.props.callBack({name:this.props.data.name,phone:this.props.data.number});
                 });
             }} style={[{
                 width: width - Pixel.getPixel(30), height: Pixel.getPixel(50),

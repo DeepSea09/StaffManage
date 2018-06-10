@@ -29,12 +29,16 @@ export  default class WoDeTitle extends PureComponent {
         return (
             <View style={{width: width, backgroundColor: fontAndColor.COLORB0,height:Pixel.getPixel(150),
             flexDirection:'row'}}>
-                <View style={{flex:1,marginTop:Pixel.getPixel(30),alignItems:'flex-end'}}>
+                <TouchableOpacity onPress={()=>{
+                    this.props.toInfo();
+                }} style={{flex:1,marginTop:Pixel.getPixel(30),alignItems:'flex-end'}}>
                     <View style={{width:Pixel.getPixel(90),height:Pixel.getPixel(90),
                         backgroundColor:'#fff',borderRadius:100,alignItems:'center',justifyContent:'center'
                     }}><Text>头像</Text></View>
-                </View>
-                <View style={{flex:1}}>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{
+                    this.props.toInfo();
+                }} style={{flex:1}}>
                     <View style={{flex:1,marginTop:Pixel.getPixel(30),alignItems:'flex-end'}}>
                         <View style={{height:Pixel.getPixel(90),
                             alignItems:'flex-start'
@@ -54,7 +58,7 @@ export  default class WoDeTitle extends PureComponent {
                             </Text>
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
                 <View style={{flex:1}}>
                     <View style={{flex:1,marginTop:Pixel.getPixel(30),alignItems:'flex-end'}}>
                         <View style={{height:Pixel.getPixel(90),

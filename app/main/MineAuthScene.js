@@ -21,7 +21,7 @@ import * as fontAndColor from '../constant/fontAndColor';
 import NavigationView from '../component/AllNavigationView';
 import MineAuthItem from './component/MineAuthItem';
 import CarIDScene from "./CarIDScene";
-export default class MainScene extends BaseComponent {
+export default class MineAuthScene extends BaseComponent {
 
     constructor(props) {
         super(props);
@@ -29,6 +29,7 @@ export default class MainScene extends BaseComponent {
 
 
     render() {
+        console.log(this.props.navigation.state.params.data);
         return (<View style={{flex:1, backgroundColor:'#fff'}}>
             <View style={{width:width,height:Pixel.getPixel(150),justifyContent:'center',
             alignItems:'center',marginTop:Pixel.getTitlePixel(64)}}>
@@ -40,10 +41,10 @@ export default class MainScene extends BaseComponent {
                 <Text style={{fontSize:Pixel.getPixel(fontAndColor.BUTTONFONT30), color:'#000',
                 fontWeight:'bold',marginTop:Pixel.getPixel(10)}}>修改</Text>
             </View>
-            <MineAuthItem data={{name:'名字',content:'修改',left:require('../../images/leftimage.png')}}
+            <MineAuthItem data={{name:this.props.navigation.state.params.data.name,content:'修改',left:require('../../images/leftimage.png')}}
                           callBack={()=>{}}/>
             <View style={{width:width,height:1, backgroundColor:fontAndColor.COLORA3}}></View>
-            <MineAuthItem data={{name:'手机',content:'修改',left:require('../../images/leftimage.png')}}
+            <MineAuthItem data={{name:this.props.navigation.state.params.data.phone,content:'修改',left:require('../../images/leftimage.png')}}
                           callBack={()=>{}}/>
             <View style={{width:width,height:1, backgroundColor:fontAndColor.COLORA3}}></View>
             <MineAuthItem data={{name:'身份证',content:'去认证',left:require('../../images/leftimage.png')}}

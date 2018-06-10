@@ -21,8 +21,7 @@ import Pixel from '../utils/PixelUtil'
 
 import NavigationView from '../component/AllNavigationView';
 import * as Urls from "../constant/appUrls";
-import {request} from "../utils/RequestUtil";
-import LoginScene from '../login/LoginScene';
+import {request} from "../utils/ListRequestUtil";
 import TongXunItem from './component/TongXunItem';
 import * as fontAndColor from "../constant/fontAndColor";
 
@@ -30,6 +29,7 @@ export default class TongXunLuScene extends BaseComponent {
 
     constructor(props) {
         super(props);
+        this.allData = [];
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
             source: ds.cloneWithRows(JSON.parse(this.props.navigation.state.params.personData)),
@@ -54,10 +54,22 @@ export default class TongXunLuScene extends BaseComponent {
                 showsVerticalScrollIndicator={false}
                 style={{marginTop: Pixel.getTitlePixel(64)}}
             />
-            <View style={{width:width,height:Pixel.getPixel(45),paddingVertical:Pixel.getPixel(5),
-            alignItems:'center'}}>
+            <View style={{
+                width: width, height: Pixel.getPixel(45), paddingVertical: Pixel.getPixel(5),
+                alignItems: 'center'
+            }}>
                 <TouchableOpacity onPress={() => {
-                    console.log(this.allData);
+                    let selectData = {recommends: []};
+                    for (let i = 0; i < this.allData.length; i++) {
+                        if (!this.isNull(this.allData[i])) {
+                            selectData.recommends.push({
+                                name: this.allData[i].name
+                                , phone: this.allData[i].phone
+                            });
+                        }
+
+                    }
+                    this.toInvi(selectData);
                 }} style={{
                     width: Pixel.getPixel(120), height: Pixel.getPixel(35),
                     borderRadius: 5,
@@ -89,36 +101,26 @@ export default class TongXunLuScene extends BaseComponent {
         );
     }
 
-    sendPost = () => {
-        if (this.isNull(global.token)) {
-            this.toNextPage({
-                name: 'LoginScene',
-                component: LoginScene,
-                params: {}
-            });
-        } else {
-            this.props.screenProps.showModal(true);
-            let maps = {
-                id: this.allData.id
-            };
-            request(Urls.APPLY, 'Post', maps)
-                .then((response) => {
-                        console.log(response);
-                        this.props.screenProps.showModal(false);
-                        this.refs.postpow.changeShow('申请成功');
-                    },
-                    (error) => {
-                        this.props.screenProps.showModal(false);
-                        this.refs.postpow.changeShow('申请失败');
-                    });
-        }
+    toInvi = (selectData) => {
 
+        this.props.screenProps.showModal(true);
+        request(Urls.EMPLOYEERECOMMEND, 'Post', JSON.stringify(selectData))
+            .then((response) => {
+                    this.props.screenProps.showToast('推荐成功');
+                },
+                (error) => {
+                    if (error.mycode == -300 || error.mycode == -500) {
+                        this.props.screenProps.showToast("网络连接失败");
+                    } else {
+                        this.props.screenProps.showToast(error.mjson.msg);
+                    }
+                });
     }
 
     _renderRow = (movie, sectionId, rowId) => {
         return (<TongXunItem rowId={parseInt(rowId) + 1} data={movie}
                              callBack={(select) => {
-                                 this.allData[rowId].select = select;
+                                 this.allData[rowId] = select;
                              }}/>);
 
     }

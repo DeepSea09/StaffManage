@@ -4,25 +4,15 @@ var Platform = require('Platform');
 import * as StorageKeyNames from "../constant/storageKeyNames";
 import {all} from '../constant/AllBackLogin';
 import LoginScene from '../login/LoginScene';
+
 const request = (url, method, params, backToLogin) => {
     let loginSuccess = {
         name: 'LoginScene',
         component: LoginScene,
-        params: {from:'request'}
+        params: {from: 'request'}
     }
     let isOk;
-    let body = '{';
-    for (let key of Object.keys(params)) {
-        body += '\"' + key + '\"';
-        body += ':';
-        body += '\"' + params[key] + '\"';
-        body += ',';
-    }
-    if (body.length > 0) {
-        body = body.substring(0, body.length - 1);
-    }
-    body += '}';
-    console.log(body);
+    let body = params;
 
     return new Promise((resolve, reject) => {
         StorageUtil.mGetItem(StorageKeyNames.TOKEN, (data) => {
@@ -38,7 +28,7 @@ const request = (url, method, params, backToLogin) => {
             } else {
                 device_code = 'dycd_platform_ios';
             }
-            console.log('token=='+global.token);
+            console.log('token==' + global.token);
             console.log(url + '?' + body);
             // token='c14147e5cbcab32f9a7fa449ddfad746';
             fetch(url + '?token=' + global.token, {
@@ -70,7 +60,7 @@ const request = (url, method, params, backToLogin) => {
                             resolve({mjson: responseData, mycode: 1});
                         } else {
                             if (responseData.msg == 'token已过期') {
-                                global.token='';
+                                global.token = '';
                                 StorageUtil.mSetItem(StorageKeyNames.TOKEN, '');
                                 if (all) {
                                     all.immediatelyResetRouteStack([{

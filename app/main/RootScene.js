@@ -69,7 +69,7 @@ export default class RootScene extends BaseComponent {
     toJump = () => {
         this.navigatorParams.component = NavigationScene;
         this.navigatorParams.name = 'NavigationScene';
-        this.toNextPage(this.navigatorParams);
+        this.placePage(this.navigatorParams);
     }
 
     // toNextPage = (mProps) => {

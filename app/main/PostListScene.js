@@ -46,7 +46,7 @@ export default class MainScene extends BaseComponent {
     initFinish = () => {
         console.log('finishi');
         let names = '';
-        if(this.props.name=='好工作'&&this.state.showType=='all'){
+        if(this.props.name=='高返费'&&this.state.showType=='all'){
             names = '';
         }else{
             if(this.props.name=='好工作'){
@@ -135,7 +135,7 @@ export default class MainScene extends BaseComponent {
 
         } else {
             if (this.pageIndex < this.allPage) {
-                this.page++;
+                this.pageIndex++;
                 this.initFinish();
             }
         }

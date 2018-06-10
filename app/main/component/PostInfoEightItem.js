@@ -29,6 +29,9 @@ export default class PostInfoEightItem extends PureComponent {
 
     render() {
         let that = this;
+        console.log('-------------------------------');
+        console.log(this.props.data.company.latitude);
+        console.log(this.props.data.company.longitude);
         return (
             <View style={{
                 width: width - Pixel.getPixel(30), marginTop: Pixel.getPixel(20),
@@ -46,7 +49,7 @@ export default class PostInfoEightItem extends PureComponent {
                     <MapView.Marker
                         color='red'
                         coordinate={{
-                            latitude: this.props.data.company.latitude,
+                            latitude:this.props.data.company.latitude,
                             longitude: this.props.data.company.longitude
                         }}
                     />

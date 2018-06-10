@@ -16,8 +16,10 @@ import {
 import Pixel from "../utils/PixelUtil";
 import * as fontAndColor from "../constant/fontAndColor";
 import MyButton from "./MyButton";
+
 const {width, height} = Dimensions.get('window');
-import { NavigationActions } from 'react-navigation'
+import {NavigationActions, StackActions} from 'react-navigation'
+
 let dismissKeyboard = require('dismissKeyboard')
 
 export default class BaseComponent extends Component {
@@ -39,7 +41,7 @@ export default class BaseComponent extends Component {
 
         } finally {
             InteractionManager.runAfterInteractions(() => {
-            this.initFinish();
+                this.initFinish();
             });
         }
 
@@ -47,16 +49,25 @@ export default class BaseComponent extends Component {
     }
 
 
-    placePage = (name)=> {
-        const { dispatch } = this.props.navigation;
-        const resetAction = NavigationActions.reset({
+    placePage = (name) => {
+        console.log(NavigationActions);
+        // const { dispatch } = this.props.navigation;
+        // const resetAction = NavigationActions.reset({
+        //     index: 0,
+        //     actions: [
+        //         NavigationActions.navigate({ routeName: name})
+        //     ]
+        // });
+        // dispatch(resetAction)
+
+        const resetAction = StackActions.reset({
             index: 0,
-            actions: [
-                NavigationActions.navigate({ routeName: name})
-            ]
+            actions: [NavigationActions.navigate({routeName: 'NavigationScene'})]
         });
-        dispatch(resetAction)
-    };
+        this.props.navigation.dispatch(resetAction);
+
+    }
+    ;
 
 
     initFinish() {
@@ -74,8 +85,8 @@ export default class BaseComponent extends Component {
         //         ...mProps
         //     })
         // }
-        const { navigate } = this.props.navigation;
-        navigate(mProps.name,{...mProps.params})
+        const {navigate} = this.props.navigation;
+        navigate(mProps.name, {...mProps.params})
     }
 
     /**
@@ -103,7 +114,7 @@ export default class BaseComponent extends Component {
             if (content == 'null') {
                 return true;
             }
-            if ((content+'').trim() == '') {
+            if ((content + '').trim() == '') {
                 return true;
             }
             return false;
@@ -117,16 +128,19 @@ export default class BaseComponent extends Component {
     }
 
     backPage = () => {
-        let routes = this.props.screenProps.getRoute();
-        if(routes[routes.length - 1].routeName === 'FunctionScene'){
-            BackHandler.exitApp();
-        }else{
-            const { dispatch } = this.props.navigation;
-            const backAction = NavigationActions.back({
-                key: null
-            });
-            dispatch(backAction);
+        if(this.props.screenProps){
+            let routes = this.props.screenProps.getRoute();
+            if (routes[routes.length - 1].routeName === 'FunctionScene') {
+                BackHandler.exitApp();
+            } else {
+                const {dispatch} = this.props.navigation;
+                const backAction = NavigationActions.back({
+                    key: null
+                });
+                dispatch(backAction);
+            }
         }
+
     }
 
     backToTop = () => {
@@ -135,7 +149,6 @@ export default class BaseComponent extends Component {
             navigator.popToTop();
         }
     }
-
 
 
     componentWillUnmount() {
@@ -184,10 +197,10 @@ export default class BaseComponent extends Component {
                     source={require('../../images/setDataLoading.gif')}/>
                 <Text allowFontScaling={false}
                       style={{
-                        color: fontAndColor.COLORA0,
-                        fontSize: Pixel.getFontPixel(fontAndColor.BUTTONFONT30),
-                        marginTop: Pixel.getPixel(5)
-                    }}>
+                          color: fontAndColor.COLORA0,
+                          fontSize: Pixel.getFontPixel(fontAndColor.BUTTONFONT30),
+                          marginTop: Pixel.getPixel(5)
+                      }}>
                     加载中......
                 </Text>
             </View>
@@ -196,16 +209,16 @@ export default class BaseComponent extends Component {
 
                 <Text allowFontScaling={false}
                       style={{
-                        color: fontAndColor.COLORA0, fontSize: Pixel.getFontPixel(fontAndColor.BUTTONFONT30),
-                        marginTop: Pixel.getPixel(85 + 64)
-                    }}>
+                          color: fontAndColor.COLORA0, fontSize: Pixel.getFontPixel(fontAndColor.BUTTONFONT30),
+                          marginTop: Pixel.getPixel(85 + 64)
+                      }}>
                     网络错误
                 </Text>
                 <Text allowFontScaling={false}
                       style={{
-                        color: fontAndColor.COLORA1, fontSize: Pixel.getFontPixel(fontAndColor.LITTLEFONT28),
-                        marginTop: Pixel.getPixel(10)
-                    }}>
+                          color: fontAndColor.COLORA1, fontSize: Pixel.getFontPixel(fontAndColor.LITTLEFONT28),
+                          marginTop: Pixel.getPixel(10)
+                      }}>
                     当前网络环境较差，请刷新重试
                 </Text>
                 <MyButton {...this.allRefreshParams} />
@@ -221,16 +234,16 @@ export default class BaseComponent extends Component {
                     source={require('../../images/noData.png')}/>
                 <Text allowFontScaling={false}
                       style={{
-                        color: fontAndColor.COLORA0, fontSize: Pixel.getFontPixel(fontAndColor.BUTTONFONT30),
-                        marginTop: Pixel.getPixel(27)
-                    }}>
+                          color: fontAndColor.COLORA0, fontSize: Pixel.getFontPixel(fontAndColor.BUTTONFONT30),
+                          marginTop: Pixel.getPixel(27)
+                      }}>
                     暂无数据
                 </Text>
                 <Text allowFontScaling={false}
                       style={{
-                        color: fontAndColor.COLORA1, fontSize: Pixel.getFontPixel(fontAndColor.LITTLEFONT28),
-                        marginTop: Pixel.getPixel(10)
-                    }}>
+                          color: fontAndColor.COLORA1, fontSize: Pixel.getFontPixel(fontAndColor.LITTLEFONT28),
+                          marginTop: Pixel.getPixel(10)
+                      }}>
                 </Text>
                 {this.state.renderPlaceholderOnly == 'noData' ? <MyButton {...this.allRefreshParams}/> : null}
             </View>
@@ -263,10 +276,10 @@ export default class BaseComponent extends Component {
         return view;
     }
 
-    isEmpty = (str)=>{
-        if(typeof(str) != 'undefined' && str !== null && str !== ''){
+    isEmpty = (str) => {
+        if (typeof(str) != 'undefined' && str !== null && str !== '') {
             return false;
-        }else {
+        } else {
             return true;
         }
     };

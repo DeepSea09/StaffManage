@@ -34,6 +34,7 @@ import ApplyScene from "./ApplyScene";
 import CarIDScene from "./CarIDScene";
 import * as Urls from "../constant/appUrls";
 import {request} from "../utils/RequestUtil";
+import ChildMineInviScene from "./ChildMineInviScene";
 
 export default class MainScene extends BaseComponent {
 
@@ -103,7 +104,13 @@ export default class MainScene extends BaseComponent {
 
     _renderRow = (movie, sectionId, rowId) => {
         if (rowId == 0) {
-            return (<WoDeTitle callBack={() => {
+            return (<WoDeTitle toInfo={() => {
+                this.props.toNextPage({
+                    name: 'MineAuthScene',
+                    component: MineAuthScene,
+                    params: {data: this.allData}
+                });
+            }} callBack={() => {
                 this.props.toNextPage({
                     name: 'CarIDScene',
                     component: CarIDScene,
@@ -125,8 +132,8 @@ export default class MainScene extends BaseComponent {
                     });
                 } else if (movie.name == '我的推荐') {
                     this.props.toNextPage({
-                        name: 'MineInviScene',
-                        component: MineInviScene,
+                        name: 'ChildMineInviScene',
+                        component: ChildMineInviScene,
                         params: {}
                     });
                 } else if (movie.name == '我申请的工作') {
