@@ -26,6 +26,7 @@ import * as fontAndColor from '../constant/fontAndColor';
 import * as Urls from '../constant/appUrls';
 import {request} from '../utils/RequestUtil';
 import MainScene from "../main/NavigationScene";
+import LoginPow from "../main/component/LoginPow";
 
 export default class LoginScene extends BaseComponent {
 
@@ -53,7 +54,7 @@ export default class LoginScene extends BaseComponent {
                 width: width - Pixel.getPixel(80),
                 height: Pixel.getPixel(370), top: Pixel.getPixel(140), backgroundColor:
                     '#fff', left: Pixel.getPixel(40), borderRadius: 5, alignItems: 'center',
-                position:'absolute'
+                position: 'absolute'
             }}>
                 <TextInput
                     onChangeText={(text) => {
@@ -139,7 +140,45 @@ export default class LoginScene extends BaseComponent {
                     borderRadius: 100, backgroundColor: '#ff0'
                 }}></View>
             </View>
+            <LoginPow ref="loginpow" callBack={(name) => {
+                this.toReset(name);
+            }}/>
         </View>)
+    }
+
+    toReset = (name) => {
+        this.props.screenProps.showModal(true);
+        let maps = {
+            phone: this.loginData.phone,
+            yzm:this.loginData.msg,
+            name:name
+        };
+        request(Urls.REGISTER, 'Post', maps)
+            .then((response) => {
+                    this.refs.loginpow.changeShow(false);
+                    this.props.screenProps.showModal(false);
+                    global.token = response.mjson.data;
+                    StorageUtil.mSetItem(StorageKeyNames.TOKEN, response.mjson.data);
+                    if (this.props.from == 'request') {
+                        const navigator = this.props.navigator;
+                        if (navigator) {
+                            navigator.replace({
+                                ...this.navigatorParams
+                            })
+                        }
+                    } else {
+                        this.backPage();
+                    }
+                },
+                (error) => {
+                    this.refs.loginpow.changeShow(false);
+                    if (error.mycode == -300 || error.mycode == -500) {
+                        this.props.screenProps.showToast("网络连接失败");
+                    } else {
+                        this.props.screenProps.showToast(error.mjson.msg);
+                    }
+
+                });
     }
 
     sendMsg = () => {
@@ -154,19 +193,19 @@ export default class LoginScene extends BaseComponent {
                         this.props.screenProps.showToast("发送成功");
                     },
                     (error) => {
-                    if(error.mycode==-300||error.mycode==-500){
-                        this.props.screenProps.showToast("网络连接失败");
-                    }else{
-                        this.props.screenProps.showToast(error.mjson.msg);
-                    }
+                        if (error.mycode == -300 || error.mycode == -500) {
+                            this.props.screenProps.showToast("网络连接失败");
+                        } else {
+                            this.props.screenProps.showToast(error.mjson.msg);
+                        }
 
                     });
         }
     }
 
     login = () => {
-        if ((this.loginData.phone == '' || this.loginData.phone.toString().length < 11)||
-            (this.loginData.msg=='')) {
+        if ((this.loginData.phone == '' || this.loginData.phone.toString().length < 11) ||
+            (this.loginData.msg == '')) {
             this.props.screenProps.showToast('请输入正确手机号码和验证码');
         } else {
             this.props.screenProps.showModal(true);
@@ -177,27 +216,36 @@ export default class LoginScene extends BaseComponent {
             request(Urls.LOGIN, 'Post', maps)
                 .then((response) => {
                         this.props.screenProps.showModal(false);
-                        global.token=response.mjson.data;
+                        global.token = response.mjson.data;
                         StorageUtil.mSetItem(StorageKeyNames.TOKEN, response.mjson.data);
-                        if(this.props.from=='request'){
+                        if (this.props.from == 'request') {
                             const navigator = this.props.navigator;
                             if (navigator) {
                                 navigator.replace({
                                     ...this.navigatorParams
                                 })
                             }
-                        }else{
+                        } else {
                             this.backPage();
                         }
                     },
                     (error) => {
-                        if(error.mycode==-300||error.mycode==-500){
+                        if (error.mycode == -300 || error.mycode == -500) {
                             this.props.screenProps.showToast("网络连接失败");
-                        }else{
-                            this.props.screenProps.showToast(error.mjson.msg);
+                        } else {
+                            if (error.mjson.msg == "用户不存在") {
+                                this.props.screenProps.showModal(false);
+                                this.showPop();
+                            } else {
+                                this.props.screenProps.showToast(error.mjson.msg);
+                            }
                         }
                     });
         }
+    }
+
+    showPop = () => {
+        this.refs.loginpow.changeShow(true);
     }
 
     navigatorParams = {

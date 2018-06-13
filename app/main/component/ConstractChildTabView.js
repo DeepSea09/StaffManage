@@ -50,7 +50,7 @@ export default class ChildTabView extends PureComponent {
                 <Text allowFontScaling={false}  ref="ttt"
                       style={[this.props.activeTab === this.props.i ? {color: '#fff'} :
                           {color: '#fff'},
-                        {fontSize: Pixel.getFontPixel(18)}]}>
+                        {fontSize: Pixel.getFontPixel(16)}]}>
                     {list[0]}
                 </Text>
             </View>

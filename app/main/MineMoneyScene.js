@@ -60,11 +60,9 @@ export default class MineMoneyScene extends BaseComponent {
             return this._renderPlaceholderView();
         }
         return (<View style={{flex:1, backgroundColor:'#fff',alignItems:'center'}}>
-            <View style={{width:width,height:Pixel.getPixel(180),justifyContent:'center',
-                alignItems:'center',marginTop:Pixel.getTitlePixel(64), backgroundColor:'#0ff'}}>
-                <Text style={{fontSize:Pixel.getPixel(fontAndColor.BUTTONFONT30), color:'#000',
-                    fontWeight:'bold',marginTop:Pixel.getPixel(10)}}>占位图</Text>
-            </View>
+            <Image style={{width:width,height:Pixel.getPixel(180),justifyContent:'center',
+                alignItems:'center',marginTop:Pixel.getTitlePixel(64)}} source={require('../../images/wdxs.jpg')}>
+            </Image>
             <View style={{width:width,height:Pixel.getPixel(130),marginTop:Pixel.getPixel(30),
             flexDirection:'row'}}>
                 <View style={{flex:1}}>
@@ -182,7 +180,7 @@ export default class MineMoneyScene extends BaseComponent {
             <View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
                 {this.loadView()}
                 <NavigationView
-                    title={"我申请的工作"}
+                    title={"我的薪水"}
                     backIconClick={this.backPage}
                 />
             </View>

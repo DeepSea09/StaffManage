@@ -41,9 +41,19 @@ export default class MineInviScene extends BaseComponent {
         let maps = {};
         request(Urls.RECOMMEND, 'Post', maps)
             .then((response) => {
-                    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-                    this.setState({renderPlaceholderOnly: 'success',
-                        source: ds.cloneWithRows(response.mjson.data)});
+                    if (this.isNull(response.mjson.data)) {
+                        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+                        this.setState({
+                            renderPlaceholderOnly: 'success',
+                            source: ds.cloneWithRows([{name: '', state: '', phone: ''}])
+                        });
+                    } else {
+                        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+                        this.setState({
+                            renderPlaceholderOnly: 'success',
+                            source: ds.cloneWithRows(response.mjson.data)
+                        });
+                    }
                 },
                 (error) => {
                     this.setState({renderPlaceholderOnly: 'error'});
@@ -84,15 +94,11 @@ export default class MineInviScene extends BaseComponent {
         if (rowId == 0) {
             return (
                 <View style={{alignItems: 'center'}}>
-                    <View style={{
+                    <Image style={{
                         width: width, height: Pixel.getPixel(180), justifyContent: 'center',
-                        alignItems: 'center', marginTop: Pixel.getTitlePixel(64), backgroundColor: '#0ff'
-                    }}>
-                        <Text style={{
-                            fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30), color: '#000',
-                            fontWeight: 'bold', marginTop: Pixel.getPixel(10)
-                        }}>占位图</Text>
-                    </View>
+                        alignItems: 'center', marginTop: Pixel.getTitlePixel(64)
+                    }} source={require('../../images/gytj.jpg')}>
+                    </Image>
                     <MineAuthItem data={{name: '奖励说明文字', content: '', left: require('../../images/leftimage.png')}}
                                   callBack={() => {
                                   }}/>
@@ -120,15 +126,15 @@ export default class MineInviScene extends BaseComponent {
                                   callBack={() => {
                                   }}/>
                     <View style={{width: width, height: 1, backgroundColor: fontAndColor.COLORA3}}></View>
-                    <InviItem number={'序号'} data={{ name: '姓名', creator: '状态'}} show={true}/>
-                    <InviItem number={parseInt(rowId)+1} data={movie} show={false}/>
+                    <InviItem number={'序号'} data={{name: '姓名', state: '状态'}} show={true}/>
+                    <InviItem number={movie.phone == '' ? '' : parseInt(rowId) + 1} data={movie} show={false}/>
                 </View>
             )
         }
         else {
             return (
                 <View style={{alignItems: 'center'}}>
-                    <InviItem number={parseInt(rowId)+1} data={movie} show={false}></InviItem>
+                    <InviItem number={parseInt(rowId) + 1} data={movie} show={false}></InviItem>
                 </View>
             )
         }

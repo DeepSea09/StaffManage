@@ -60,7 +60,7 @@ export default class PostInfoSevenItem extends PureComponent {
                     <Text style={{
                         fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
                         color: '#fff'
-                    }}>我要面试</Text>
+                    }}>我要进厂</Text>
                 </TouchableOpacity>
             </View>
         );

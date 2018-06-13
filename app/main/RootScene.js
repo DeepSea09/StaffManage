@@ -59,7 +59,17 @@ export default class RootScene extends BaseComponent {
      *   初始化
      **/
     initFinish = () => {
-        this.toJump();
+        StorageUtil.mGetItem(KeyNames.FIRST_INTO, (data) => {
+            if (data.code == 1) {
+                let datas = data.result;
+                if (datas == "true") {
+                    this.toJump();
+                } else {
+                    this.placePage("WelcomScene");
+                }
+            }
+        })
+
     }
 
     /**
@@ -69,7 +79,7 @@ export default class RootScene extends BaseComponent {
     toJump = () => {
         this.navigatorParams.component = NavigationScene;
         this.navigatorParams.name = 'NavigationScene';
-        this.placePage(this.navigatorParams);
+        this.placePage("NavigationScene");
     }
 
     // toNextPage = (mProps) => {

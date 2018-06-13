@@ -129,6 +129,12 @@ export default class NavigationScene extends BaseComponent {
                             component: LoginScene,
                             params: {}
                         });
+                    }else if(data.ref == 'allmoney' && this.isNull(global.token)){
+                        this.toNextPage({
+                            name: 'LoginScene',
+                            component: LoginScene,
+                            params: {}
+                        });
                     } else {
                         this.setState({selectedTab: data.ref})
                     }
@@ -156,7 +162,16 @@ export default class NavigationScene extends BaseComponent {
                     {items}
                 </TabNavigator>
                 <TouchableOpacity onPress={() => {
-                    this.setState({selectedTab: 'allmoney'})
+                    if(this.isNull(global.token)){
+                        this.toNextPage({
+                            name: 'LoginScene',
+                            component: LoginScene,
+                            params: {}
+                        });
+                    }else{
+                        this.setState({selectedTab: 'allmoney'})
+                    }
+
                 }} activeOpacity={1} style={{
                     position: 'absolute',
                     bottom: Pixel.getPixel(3),

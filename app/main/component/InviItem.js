@@ -42,7 +42,7 @@ export  default class WoDeItem extends PureComponent {
                 <View style={[{flex:3,borderWidth:1,borderColor:fontAndColor.COLORA3,
                     alignItems:'center',justifyContent:'center'},this.props.show?{}:{borderTopWidth:0}]}>
                     <Text style={{fontSize:Pixel.getPixel(fontAndColor.LITTLEFONT28),
-                        color:'#000'}}>{this.props.data.creator}</Text>
+                        color:'#000'}}>{this.props.data.state}</Text>
                 </View>
             </View>
         );

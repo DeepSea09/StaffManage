@@ -122,7 +122,9 @@ export default class PostInfoScene extends BaseComponent {
 
     _renderRow = (movie, sectionId, rowId) => {
         if (rowId == 0) {
-            return (<PostInfoOneItem data={this.allData}/>)
+            return (<PostInfoOneItem callBack={() => {
+                this.sendPost();
+            }} data={this.allData}/>)
         } else if (rowId == 2) {
             return (<PostInfoThreeItem data={this.allData}/>);
         } else if (rowId == 3) {

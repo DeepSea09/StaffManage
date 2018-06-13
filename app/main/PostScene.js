@@ -42,11 +42,7 @@ export default class PostScene extends BaseComponent {
                 scrollWithoutAnimation={true}
                 renderTabBar={() =>
                     <ConstractTabBar findBack={() => {
-                        this.props.toNextPage({
-                            name: 'FindPostListScene',
-                            component: FindPostListScene,
-                            params: {}
-                        })
+
                     }} tabName={["高返费", "好工作", '小时工', '假期工']} callBack={(tabname) => {
                         console.log(tabname);
                         this.refs.postlistsceness.changeShow();
@@ -58,7 +54,7 @@ export default class PostScene extends BaseComponent {
 
                 <PostListScene toNextPage={(content) => {
                     this.props.toNextPage(content)
-                }}  tabLabel="ios-paper" name={'好工作'}/>
+                }} tabLabel="ios-paper" name={'好工作'}/>
 
                 <PostListScene toNextPage={(content) => {
                     this.props.toNextPage(content)
@@ -69,9 +65,34 @@ export default class PostScene extends BaseComponent {
                 }} tabLabel="ios-chatboxes12" name={'假期工'}/>
 
             </ScrollableTabView>
-            <NavigationView
-                title="岗位列表"
-            />
+            <View style={{
+                width: width, height: Pixel.getTitlePixel(64),
+                backgroundColor: fontAndColor.COLORB0,
+                left: 0,
+                right: 0,
+                position: 'absolute',
+                alignItems:'center',
+                justifyContent:'center'
+            }}>
+                <TouchableOpacity onPress={()=>{
+                    this.props.toNextPage({
+                        name: 'FindPostListScene',
+                        component: FindPostListScene,
+                        params: {}
+                    })
+                }} style={{width:width-Pixel.getPixel(30),
+                    height:Pixel.getPixel(30),backgroundColor:'#fff',borderWidth:1,
+                    borderColor:fontAndColor.COLORA4,borderRadius:3,flexDirection:'row'}}>
+                    <View style={{flex:1,justifyContent:'center',paddingLeft:Pixel.getPixel(5)}}>
+                        <Text style={{fontSize:Pixel.getPixel(fontAndColor.BUTTONFONT30),
+                            color:'#000'}}>查找你感兴趣的岗位</Text>
+                    </View>
+                    <View style={{flex:1,justifyContent:'center',paddingRight:Pixel.getPixel(5),alignItems:'flex-end'}}>
+                        <Image style={{width: Pixel.getPixel(25), height: Pixel.getPixel(25)}}
+                               source={require('../../images/findIcon.png')}/>
+                    </View>
+                </TouchableOpacity>
+            </View>
         </View>)
     }
 }

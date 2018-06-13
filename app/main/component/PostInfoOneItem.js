@@ -25,7 +25,7 @@ export default class PostInfoOneItem extends PureComponent {
         super(props);
         this.state = {
             show: 'row',
-            image:this.props.data.company.cqPic
+            image: this.props.data.company.cqPic
         };
     }
 
@@ -33,28 +33,46 @@ export default class PostInfoOneItem extends PureComponent {
         return (
             <View style={{
                 width: width - Pixel.getPixel(30),
-                marginLeft: Pixel.getPixel(15),marginTop:Pixel.getPixel(20),
+                marginLeft: Pixel.getPixel(15), marginTop: Pixel.getPixel(20),
             }}>
                 <View style={{
-                    width: Pixel.getPixel(110), height: Pixel.getPixel(28),
-                    backgroundColor: fontAndColor.COLORB0, borderRadius: 10,
-                    marginBottom:Pixel.getPixel(20),
-                    alignItems:'center', justifyContent:'center'
+                    flex: 1, height: Pixel.getPixel(28),
+                    marginBottom: Pixel.getPixel(20),
+                    flexDirection: 'row'
                 }}>
-                    <Text style={{fontSize:Pixel.getPixel(fontAndColor.BUTTONFONT30),
-                    color:'#fff'}}>工厂环境</Text>
+                    <View style={{flex: 1}}>
+                        <View style={{
+                            width: Pixel.getPixel(110), height: Pixel.getPixel(28),
+                            backgroundColor: fontAndColor.COLORB0, borderRadius: 10,
+                            alignItems: 'center', justifyContent: 'center'
+                        }}>
+                            <Text style={{
+                                fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
+                                color: '#fff'
+                            }}>工厂环境</Text>
+                        </View>
+                    </View>
+                    <TouchableOpacity onPress={() => {
+                        this.props.callBack();
+                    }} style={{flex: 1, alignItems: 'flex-end', justifyContent: 'center'}}>
+                        <Text style={{
+                            fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
+                            color: 'red', marginRight: Pixel.getPixel(15)
+                        }}>我要进厂</Text>
+                    </TouchableOpacity>
                 </View>
-                <PostInfoOneTab callBack={(index)=>{
-                    if(index==0){
-                        this.setState({image:this.props.data.company.cqPic});
-                    }else if(index==1){
-                        this.setState({image:this.props.data.company.workPic});
-                    }else if(index==2){
-                        this.setState({image:this.props.data.company.dormPic});
-                    }else if(index==3){
-                        this.setState({image:this.props.data.company.eatPic});
-                    }else{
-                        this.setState({image:this.props.data.company.salaryPic});
+
+                <PostInfoOneTab callBack={(index) => {
+                    if (index == 0) {
+                        this.setState({image: this.props.data.company.cqPic});
+                    } else if (index == 1) {
+                        this.setState({image: this.props.data.company.workPic});
+                    } else if (index == 2) {
+                        this.setState({image: this.props.data.company.dormPic});
+                    } else if (index == 3) {
+                        this.setState({image: this.props.data.company.eatPic});
+                    } else {
+                        this.setState({image: this.props.data.company.salaryPic});
                     }
                 }}/>
                 <View style={{

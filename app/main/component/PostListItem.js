@@ -36,7 +36,7 @@ export default class PostListItem extends PureComponent {
                     flexDirection: 'row', marginLeft: Pixel.getPixel(10), backgroundColor: '#fff', borderRadius: 5
                 }}>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                        <Image source={{uri: this.props.data.logoPic}} style={{
+                        <Image source={{uri: this.props.data.company.logoPic}} style={{
                             width: Pixel.getPixel(75), height: Pixel.getPixel(65), justifyContent: 'flex-end',
                             alignItems: 'center'
                         }}>
@@ -109,7 +109,7 @@ export default class PostListItem extends PureComponent {
                     flexDirection: 'row', marginLeft: Pixel.getPixel(10), backgroundColor: '#fff', borderRadius: 5
                 }}>
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                        <Image source={{uri: this.props.data.logoPic}} style={{
+                        <Image source={{uri: this.props.data.company.logoPic}} style={{
                             width: Pixel.getPixel(75), height: Pixel.getPixel(65), justifyContent: 'flex-end',
                             alignItems: 'center'
                         }}>
