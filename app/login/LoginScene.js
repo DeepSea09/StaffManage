@@ -133,12 +133,12 @@ export default class LoginScene extends BaseComponent {
                 width: Pixel.getPixel(115), height: Pixel.getPixel(115),
                 borderRadius: 100, borderWidth: 1, borderColor: '#fff', position: 'absolute',
                 top: Pixel.getPixel(140 - 57), left: width / 2 - Pixel.getPixel(115) / 2,
-                justifyContent: 'center', alignItems: 'center'
+                justifyContent: 'flex-end', alignItems: 'flex-end'
             }}>
-                <View style={{
-                    width: Pixel.getPixel(95), height: Pixel.getPixel(95),
-                    borderRadius: 100, backgroundColor: '#ff0'
-                }}></View>
+                <Image source={require('../../images/newlogo.png')} style={{
+                    width: Pixel.getPixel(109), height: Pixel.getPixel(109),
+                    borderRadius: 100
+                }}></Image>
             </View>
             <LoginPow ref="loginpow" callBack={(name) => {
                 this.toReset(name);

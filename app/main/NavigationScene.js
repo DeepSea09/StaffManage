@@ -92,9 +92,9 @@ export default class NavigationScene extends BaseComponent {
         tabArray.push(new tableItemInfo('findwork', 'first', '找工作',
             require('../../images/rightimage.png'),
             require('../../images/unselectleft.png'), this.getTopView('findwork')));
-        tabArray.push(new tableItemInfo('allmoney', 'scend', '1',
-            require('../../images/centerimage.png'),
-            require('../../images/centerimage.png'), this.getTopView('allmoney')));
+        tabArray.push(new tableItemInfo('allmoney', 'scend', ' ',
+            require('../../images/newcenter.png'),
+            require('../../images/newcenter.png'), this.getTopView('allmoney')));
         tabArray.push(new tableItemInfo('mine', 'three', '我',
              require('../../images/bottomleftimage.png'),
             require('../../images/unselectright.png'), this.getTopView('mine')));
@@ -175,14 +175,14 @@ export default class NavigationScene extends BaseComponent {
                 }} activeOpacity={1} style={{
                     position: 'absolute',
                     bottom: Pixel.getPixel(3),
-                    width: Pixel.getPixel(46),
-                    height: Pixel.getPixel(46),
+                    width: Pixel.getPixel(52),
+                    height: Pixel.getPixel(52),
                     left: width / 2 - Pixel.getPixel(46) / 2
                 }}>
-                    <Image source={require('../../images/centerimage.png')}
+                    <Image source={require('../../images/newcenter.png')}
                            style={{
-                               width: Pixel.getPixel(46),
-                               height: Pixel.getPixel(46)
+                               width: Pixel.getPixel(52),
+                               height: Pixel.getPixel(52)
                            }}/>
                 </TouchableOpacity>
             </View>

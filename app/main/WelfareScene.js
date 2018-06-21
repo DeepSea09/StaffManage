@@ -33,12 +33,12 @@ export default class WelfareScene extends BaseComponent {
 
     render() {
         return (<View style={{flex: 1, backgroundColor: '#fff'}}>
-            <View style={{
-                width: width, backgroundColor: fontAndColor.COLORB0, height: Pixel.getPixel(150),
+            <Image source={require('../../images/hyflzwt.jpg')} style={{
+                width: width, height: Pixel.getPixel(150),
                 flexDirection: 'row', marginTop: Pixel.getTitlePixel(64)
             }}>
-            </View>
-            <MineAuthItem data={{name: '福利列表', content: '', left: require('../../images/leftimage.png')}}
+            </Image>
+            <MineAuthItem data={{name: '福利列表', content: '', left: require('../../images/shu.png')}}
                           callBack={() => {
                           }}/>
             <View style={{width: width, height: 1, backgroundColor: fontAndColor.COLORA3}}></View>
@@ -52,56 +52,68 @@ export default class WelfareScene extends BaseComponent {
                         backgroundColor: fontAndColor.COLORB0, borderRadius: 5, justifyContent: 'center',
                         alignItems: 'center'
                     }}>
-                        <Text style={{fontSize:Pixel.getPixel(fontAndColor.BUTTONFONT30),
-                            color:'#fff'}}>打卡</Text>
+                        <Text style={{
+                            fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
+                            color: '#fff'
+                        }}>打卡</Text>
                     </View>
                     <View style={{
                         width: Pixel.getPixel(150), height: Pixel.getPixel(40),
                         backgroundColor: fontAndColor.COLORB0, borderRadius: 5, justifyContent: 'center',
-                        alignItems: 'center',marginLeft:Pixel.getPixel(20)
+                        alignItems: 'center', marginLeft: Pixel.getPixel(20)
                     }}>
-                        <Text style={{fontSize:Pixel.getPixel(fontAndColor.BUTTONFONT30),
-                            color:'#fff'}}>任务</Text>
+                        <Text style={{
+                            fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
+                            color: '#fff'
+                        }}>任务</Text>
                     </View>
                 </View>
-                <View style={{flexDirection: 'row',marginTop:Pixel.getPixel(20)}}>
+                <View style={{flexDirection: 'row', marginTop: Pixel.getPixel(20)}}>
                     <View style={{
                         width: Pixel.getPixel(150), height: Pixel.getPixel(40),
                         backgroundColor: fontAndColor.COLORB0, borderRadius: 5, justifyContent: 'center',
                         alignItems: 'center'
                     }}>
-                        <Text style={{fontSize:Pixel.getPixel(fontAndColor.BUTTONFONT30),
-                            color:'#fff'}}>活动</Text>
+                        <Text style={{
+                            fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
+                            color: '#fff'
+                        }}>活动</Text>
                     </View>
                     <View style={{
                         width: Pixel.getPixel(150), height: Pixel.getPixel(40),
                         backgroundColor: fontAndColor.COLORB0, borderRadius: 5, justifyContent: 'center',
-                        alignItems: 'center',marginLeft:Pixel.getPixel(20)
+                        alignItems: 'center', marginLeft: Pixel.getPixel(20)
                     }}>
-                        <Text style={{fontSize:Pixel.getPixel(fontAndColor.BUTTONFONT30),
-                            color:'#fff'}}>免费硬件</Text>
+                        <Text style={{
+                            fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
+                            color: '#fff'
+                        }}>免费硬件</Text>
                     </View>
                 </View>
-                <View style={{flexDirection: 'row',marginTop:Pixel.getPixel(20)}}>
+                <View style={{flexDirection: 'row', marginTop: Pixel.getPixel(20)}}>
                     <View style={{
                         width: Pixel.getPixel(150), height: Pixel.getPixel(40),
                         backgroundColor: fontAndColor.COLORB0, borderRadius: 5, justifyContent: 'center',
                         alignItems: 'center'
                     }}>
-                        <Text style={{fontSize:Pixel.getPixel(fontAndColor.BUTTONFONT30),
-                            color:'#fff'}}>离职礼包</Text>
+                        <Text style={{
+                            fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
+                            color: '#fff'
+                        }}>离职礼包</Text>
                     </View>
                     <View style={{
                         width: Pixel.getPixel(150), height: Pixel.getPixel(40),
                         backgroundColor: fontAndColor.COLORB0, borderRadius: 5, justifyContent: 'center',
-                        alignItems: 'center',marginLeft:Pixel.getPixel(20)
+                        alignItems: 'center', marginLeft: Pixel.getPixel(20)
                     }}>
-                        <Text style={{fontSize:Pixel.getPixel(fontAndColor.BUTTONFONT30),
-                            color:'#fff'}}>公益众筹</Text>
+                        <Text style={{
+                            fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
+                            color: '#fff'
+                        }}>公益众筹</Text>
                     </View>
                 </View>
             </View>
-            <MineAuthItem data={{name: '福利说明', content: '', left: require('../../images/leftimage.png')}}
+            <MineAuthItem data={{name: '福利说明', content: '', left: require('../../images/labas.png')}}
                           callBack={() => {
                           }}/>
             <View style={{width: width, height: 1, backgroundColor: fontAndColor.COLORA3}}></View>
@@ -109,10 +121,7 @@ export default class WelfareScene extends BaseComponent {
                 fontSize: Pixel.getPixel(fontAndColor.LITTLEFONT28),
                 marginHorizontal: Pixel.getPixel(20), marginTop: Pixel.getPixel(10)
             }}>
-                说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明
-                说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明
-                说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明
-                说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明
+                注册用户享有本平台提供的各种优惠活动（红包、礼品、各类优惠券、影视平台会员等。）
             </Text>
             <NavigationView
                 title="会员福利"

@@ -26,23 +26,26 @@ export  default class WoDeItem extends PureComponent {
     }
 
     render() {
+        let margintop = 0;
+        if(this.props.data.name=="会员福利"){
+            margintop = Pixel.getPixel(15);
+        }else if(this.props.data.name=="我申请的工作"){
+            margintop = Pixel.getPixel(15);
+        }else{
+            margintop = 0;
+        }
         return (
             <TouchableOpacity onPress={()=>{
                 this.props.callBack();
             }} style={{width: width,height:Pixel.getPixel(50),
-            flexDirection:'row'}}>
+            flexDirection:'row', marginTop:margintop}}>
                 <View style={{flex:1, flexDirection:'row',alignItems:'center'}}>
-                    <Image source={this.props.data.left} style={{
+                    <Image source={this.props.data.left} style={[{
                         width:Pixel.getPixel(25),height:Pixel.getPixel(25),
                         marginLeft:Pixel.getPixel(15),resizeMode:'stretch'
-                    }}></Image>
+                    },this.props.data.name=="我的薪水"?{width:Pixel.getPixel(25),height:Pixel.getPixel(30)}:{}]}></Image>
                     <Text style={{fontSize:Pixel.getPixel(fontAndColor.LITTLEFONT28),
                     color:'#000',fontWeight:'bold',marginLeft:Pixel.getPixel(15)}}>{this.props.data.name}</Text>
-                    {this.props.data.name=='我的薪水'?<Image source={require('../../../images/hotimage.png')}
-                                                         style={{
-                        width:Pixel.getPixel(40),height:Pixel.getPixel(20),
-                        marginLeft:Pixel.getPixel(5)
-                    }}></Image>:<View></View>}
                 </View>
                 <View style={{flex:1, flexDirection:'row',alignItems:'center'}}>
                     <Text style={{fontSize:Pixel.getPixel(fontAndColor.LITTLEFONT26),

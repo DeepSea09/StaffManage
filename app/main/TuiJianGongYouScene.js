@@ -68,18 +68,17 @@ export default class TuiJianGongYouScene extends BaseComponent {
 
     render() {
         return (<View style={{flex: 1, backgroundColor: '#fff', alignItems: 'center'}}>
-            <View style={{
-                width: width, backgroundColor: fontAndColor.COLORB0, height: Pixel.getPixel(150),
-                alignItems: 'center', justifyContent: 'center', marginTop: Pixel.getTitlePixel(64)
-            }}>
-                <Text style={{fontSize: Pixel.getPixel(20), color: '#fff'}}>占位图</Text>
-            </View>
-            <TuiJian data={{name: '姓         名：', content: '', left: require('../../images/leftimage.png')}}
+            <Image style={{
+                width: width, height: Pixel.getPixel(150), justifyContent: 'center',
+                alignItems: 'center', marginTop: Pixel.getTitlePixel(64)
+            }} source={require('../../images/gytj.jpg')}>
+            </Image>
+            <TuiJian data={{name: '姓         名：', content: '', left: require('../../images/ren.png')}}
                      callBack={(text) => {
                          this.allData.recommends[0].name = text;
                      }}/>
             <View style={{width: width, height: 1, backgroundColor: fontAndColor.COLORA3}}></View>
-            <TuiJian data={{name: '手机号码：', content: '', left: require('../../images/leftimage.png')}}
+            <TuiJian data={{name: '手机号码：', content: '', left: require('../../images/dianhua.png')}}
                      callBack={(text) => {
                          this.allData.recommends[0].phone = text;
                      }}/>
@@ -97,7 +96,7 @@ export default class TuiJianGongYouScene extends BaseComponent {
                     color: '#fff'
                 }}>确认推荐</Text>
             </TouchableOpacity>
-            <WoDeItem data={{name: '批量推荐', content: '', left: require('../../images/leftimage.png')}}
+            <WoDeItem data={{name: '批量推荐', content: '', left: require('../../images/shu.png')}}
                       callBack={() => {
                       }}/>
             <View style={{width: width, height: 1, backgroundColor: fontAndColor.COLORA3}}></View>

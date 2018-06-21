@@ -18,9 +18,8 @@ import {
 const {width, height} = Dimensions.get('window');
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import BaseComponent from '../component/BaseComponent';
-import PixelUtil from '../utils/PixelUtil';
+import Pixel from '../utils/PixelUtil';
 
-let Pixel = new PixelUtil();
 import StorageUtil from '../utils/StorageUtil';
 import * as KeyNames from '../constant/storageKeyNames';
 import NavigationScene from "./NavigationScene";
@@ -65,17 +64,24 @@ export default class WelcomScene extends BaseComponent {
                 >
 
                     <Image style={{resizeMode: 'stretch', width: width, flex: 1}}
-                           source={require('../../images/fxdgs.jpg')}
+                           source={require('../../images/welcomone.jpg')}
                            tabLabel="ios-paper1"/>
 
-                    <TouchableOpacity onPress={() => {
-                        StorageUtil.mSetItem(KeyNames.FIRST_INTO, 'true');
-                        this.placePage("NavigationScene");
-                    }} activeOpacity={1} style={{flex: 1}}>
+                    <View style={{flex:1}}  activeOpacity={1} style={{flex: 1}}>
                         <Image style={{resizeMode: 'stretch', width: width, flex: 1}}
                                source={require('../../images/tsjns.jpg')}
                                tabLabel="ios-paper4"/>
-                    </TouchableOpacity>
+                        <TouchableOpacity onPress={() => {
+                            StorageUtil.mSetItem(KeyNames.FIRST_INTO, 'true');
+                            this.placePage("NavigationScene");
+                        }} activeOpacity={0.8} style={{width:Pixel.getPixel(131),
+                            height:Pixel.getPixel(40),position:'absolute',
+                            bottom: Pixel.getPixel(90),
+                            left:width/2-Pixel.getPixel(60),borderWidth:1,borderRadius:20,borderColor:'#fff',
+                        alignItems:'center',justifyContent:'center'}}>
+                            <Text style={{fontSize:Pixel.getPixel(17),color:'#fff'}}>开始体验</Text>
+                        </TouchableOpacity>
+                    </View>
                 </ScrollableTabView>
             </View>
         );

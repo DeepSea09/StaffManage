@@ -63,3 +63,13 @@ export const MYKF = BASEURL + 'api/recruit/my/kf';
  * 推荐
  */
 export const EMPLOYEERECOMMEND = BASEURL + 'api/recruit/employee/recommend';
+
+/**
+ * 图片上传
+ */
+export const OPEN_UPLOAD = BASEURL + 'api/open/uploadBase64';
+
+/**
+ * 保存个人信息
+ */
+export const EMPLOYEE_SAVE = BASEURL + 'api/recruit/employee/save';

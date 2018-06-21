@@ -21,7 +21,7 @@ const {width, height} = Dimensions.get('window');
 import {NavigationActions, StackActions} from 'react-navigation'
 
 let dismissKeyboard = require('dismissKeyboard')
-
+import {all,setAll} from '../constant/AllBackLogin';
 export default class BaseComponent extends Component {
     /**
      * from @zhaojian
@@ -34,6 +34,7 @@ export default class BaseComponent extends Component {
     }
 
     componentDidMount() {
+        setAll(this.props.navigation);
         // InteractionManager.setDeadline(500);
         try {
             BackHandler.addEventListener('hardwareBackPress', this.handleBack);

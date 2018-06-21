@@ -41,15 +41,15 @@ export default class MainScene extends BaseComponent {
     constructor(props) {
         super(props);
         let mList = [{name: '顶部', content: '1', left: require('../../images/icons/Add.png')},
-            {name: '我的客服', content: '专属客服，快速找到工作', left: require('../../images/icons/Add.png')},
-            {name: '我申请的工作', content: '历史工作申请记录', left: require('../../images/icons/Archive.png')},
+            {name: '我的客服', content: '专属客服，快速找到工作', left: require('../../images/ren.png')},
+            {name: '我申请的工作', content: '历史工作申请记录', left: require('../../images/xie.png')},
             // {name: '工作经历', content: '历史工作记录', left: require('../../images/icons/Attention.png')},
-            {name: '我的薪水', content: '薪水，借支清清楚楚', left: require('../../images/icons/Calendar.png')},
-            {name: '我的推荐', content: '推荐好友获得奖励', left: require('../../images/icons/Clock.png')},
-            {name: '我的工友', content: '认识更多工友', left: require('../../images/icons/Info.png')},
-            {name: '会员福利', content: '吃喝玩住行一网打尽', left: require('../../images/icons/Mail.png')},
+            {name: '我的薪水', content: '薪水，借支清清楚楚', left: require('../../images/wdxsss.png')},
+            {name: '我的推荐', content: '推荐好友获得奖励', left: require('../../images/renjia.png')},
+            {name: '我的工友', content: '认识更多工友', left: require('../../images/shuangren.png')},
+            {name: '会员福利', content: '吃喝玩住行一网打尽', left: require('../../images/labas.png')},
             // {name: '我的证书', content: '学历、技能证书', left: require('../../images/icons/Update.png')},
-            {name: '我的培训', content: '提升技能、更高月薪', left: require('../../images/icons/Add.png')},];
+            {name: '我的培训', content: '提升技能、更高月薪', left: require('../../images/jias.png')},];
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.allData = {};
         this.state = {
@@ -60,11 +60,23 @@ export default class MainScene extends BaseComponent {
 
 
     initFinish = () => {
+        console.log("zlzlzlzlzlzlzlzlzllzz")
         let maps = {};
         request(Urls.MYINFO, 'Post', maps)
             .then((response) => {
                     this.allData = response.mjson.data;
-                    this.setState({renderPlaceholderOnly: 'success'});
+                    let newlist = [{name: '顶部', content: '1', left: require('../../images/icons/Add.png')},
+                        {name: '我的客服', content: '专属客服，快速找到工作', left: require('../../images/ren.png')},
+                        {name: '我申请的工作', content: '历史工作申请记录', left: require('../../images/xie.png')},
+                        // {name: '工作经历', content: '历史工作记录', left: require('../../images/icons/Attention.png')},
+                        {name: '我的薪水', content: '薪水，借支清清楚楚', left: require('../../images/wdxsss.png')},
+                        {name: '我的推荐', content: '推荐好友获得奖励', left: require('../../images/renjia.png')},
+                        {name: '我的工友', content: '认识更多工友', left: require('../../images/shuangren.png')},
+                        {name: '会员福利', content: '吃喝玩住行一网打尽', left: require('../../images/labas.png')},
+                        // {name: '我的证书', content: '学历、技能证书', left: require('../../images/icons/Update.png')},
+                        {name: '我的培训', content: '提升技能、更高月薪', left: require('../../images/jias.png')},];
+                    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+                    this.setState({source: ds.cloneWithRows(newlist), renderPlaceholderOnly: 'success'});
                 },
                 (error) => {
                     this.setState({renderPlaceholderOnly: 'error'});
@@ -108,13 +120,22 @@ export default class MainScene extends BaseComponent {
                 this.props.toNextPage({
                     name: 'MineAuthScene',
                     component: MineAuthScene,
-                    params: {data: this.allData}
+                    params: {
+                        data: this.allData, callBack: () => {
+                            this.initFinish();
+                        }
+                    }
                 });
             }} callBack={() => {
                 this.props.toNextPage({
                     name: 'CarIDScene',
                     component: CarIDScene,
-                    params: {}
+                    params: {
+                        idCardFront: this.allData.idCardFront, idCardEnd:
+                        this.allData.idCardEnd, callBack: () => {
+                            this.initFinish();
+                        }
+                    }
                 });
             }
             } data={this.allData}/>)

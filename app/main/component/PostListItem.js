@@ -63,7 +63,7 @@ export default class PostListItem extends PureComponent {
                         <Text style={{
                             fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
                             color: '#17930E', backgroundColor: '#00000000', fontWeight: 'bold',
-                            marginTop:Pixel.getPixel(8)
+                            marginTop: Pixel.getPixel(8)
                         }}>
                             交{this.props.data.goodJobFee}元</Text>
                     </View>
@@ -84,8 +84,9 @@ export default class PostListItem extends PureComponent {
                             }}>
                                 <Text style={
                                     {
-                                        fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
-                                        color: 'red', fontWeight: 'bold'
+                                        fontSize: Pixel.getPixel(fontAndColor.LITTLEFONT28),
+                                        color: 'red', fontWeight: 'bold', marginLeft: Pixel.getPixel(5),
+                                        marginRight: Pixel.getPixel(5)
                                     }}>我要面试</Text>
                             </View>
                         </View>
@@ -148,10 +149,10 @@ export default class PostListItem extends PureComponent {
                     }}>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Text
-                            style={{
-                                fontSize: Pixel.getPixel(fontAndColor.NAVIGATORFONT34),
-                                color: '#FF0533'
-                            }}>{this.props.data.wage} </Text>
+                                style={{
+                                    fontSize: Pixel.getPixel(fontAndColor.NAVIGATORFONT34),
+                                    color: '#FF0533'
+                                }}>{this.props.data.jobTypeStr == '小时工' ? this.props.data.hourJobFee : this.props.data.wage} </Text>
                             <View style={{
                                 padding: Pixel.getPixel(3), backgroundColor: '#ff0',
                                 borderRadius: 8
@@ -159,15 +160,15 @@ export default class PostListItem extends PureComponent {
                                 <Text style={
                                     {
                                         fontSize: Pixel.getPixel(fontAndColor.LITTLEFONT28),
-                                        color: 'red', fontWeight: 'bold',marginLeft:Pixel.getPixel(5),
-                                        marginRight:Pixel.getPixel(5)
+                                        color: 'red', fontWeight: 'bold', marginLeft: Pixel.getPixel(5),
+                                        marginRight: Pixel.getPixel(5)
                                     }}>免费入厂</Text>
                             </View>
                         </View>
 
                         <Text style={{
                             fontSize: Pixel.getPixel(fontAndColor.MARKFONT22),
-                            color:'#000', marginTop: Pixel.getPixel(8)
+                            color: '#000', marginTop: Pixel.getPixel(8)
                         }}>
                             {this.isNull(this.props.data.jobTag) ? '' : this.props.data.jobTag.replace('[', '').replace(']', '')}
                         </Text>

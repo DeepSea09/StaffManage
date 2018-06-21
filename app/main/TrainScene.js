@@ -95,7 +95,7 @@ export default class MainScene extends BaseComponent {
                    </Text>
                </View>
             </View>
-            <MineAuthItem data={{name:'培训列表',content:'',left:require('../../images/leftimage.png')}}
+            <MineAuthItem data={{name:'培训列表',content:'',left:require('../../images/banshou.png')}}
                           callBack={()=>{}}/>
             <View style={{width:width,height:1, backgroundColor:fontAndColor.COLORA3}}></View>
             <View style={{width:width,height:Pixel.getPixel(200),marginTop:Pixel.getPixel(20)}}>
@@ -107,10 +107,10 @@ export default class MainScene extends BaseComponent {
                     renderSeparator={this._renderSeparator}
                 />
             </View>
-            <MineAuthItem data={{name:'培训客服',content:'',left:require('../../images/leftimage.png')}}
+            <MineAuthItem data={{name:'培训客服',content:'',left:require('../../images/ren.png')}}
                           callBack={()=>{}}/>
             <View style={{width:width,height:1, backgroundColor:fontAndColor.COLORA3}}></View>
-            <MineAuthItem data={{name:'培训说明',content:'',left:require('../../images/leftimage.png')}}
+            <MineAuthItem data={{name:'培训说明',content:'',left:require('../../images/shu.png')}}
                           callBack={()=>{}}/>
             <View style={{width:width,height:1, backgroundColor:fontAndColor.COLORA3}}></View>
             <Text style={{fontSize:Pixel.getPixel(fontAndColor.LITTLEFONT28),

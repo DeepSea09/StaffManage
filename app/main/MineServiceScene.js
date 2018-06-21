@@ -10,7 +10,7 @@ import {
     InteractionManager,
     Text,
     AppState,
-    ListView
+    ListView, Linking
 } from 'react-native';
 
 import BaseComponent from '../component/BaseComponent';
@@ -78,7 +78,9 @@ export default class MineServiceScene extends BaseComponent {
                             }}>
                                 {this.allData.name}
                             </Text>
-                            <Text style={{
+                            <Text onPress={()=>{
+                                Linking.openURL('tel:' + this.allData.phone);
+                            }} style={{
                                 fontSize: Pixel.getPixel(fontAndColor.LITTLEFONT28),
                                 backgroundColor: '#00000000', color: '#fff', marginTop: Pixel.getPixel(7)
                             }}>
@@ -99,7 +101,9 @@ export default class MineServiceScene extends BaseComponent {
                             height: Pixel.getPixel(90),
                             alignItems: 'flex-start', marginRight: Pixel.getPixel(15)
                         }}>
-                            <Text style={{
+                            <Text onPress={()=>{
+                                Linking.openURL('tel:' + '13771683621');
+                            }} style={{
                                 fontSize: Pixel.getPixel(fontAndColor.LITTLEFONT28),
                                 backgroundColor: '#00000000', color: '#ff0', marginTop: Pixel.getPixel(7)
                             }}>
@@ -109,7 +113,7 @@ export default class MineServiceScene extends BaseComponent {
                     </View>
                 </View>
             </View>
-            <MineAuthItem data={{name: '客服微信', content: '', left: require('../../images/leftimage.png')}}
+            <MineAuthItem data={{name: '客服微信', content: '', left: require('../../images/ren.png')}}
                           callBack={() => {
                           }}/>
             <View style={{width: width, height: 1, backgroundColor: fontAndColor.COLORA3}}></View>
@@ -122,13 +126,20 @@ export default class MineServiceScene extends BaseComponent {
                     height: Pixel.getPixel(170)
                 }} source={{uri: this.allData.wxQrcode}}/>
             </View>
-            <MineAuthItem data={{name: '客服QQ', content: '', left: require('../../images/leftimage.png')}}
+            <MineAuthItem data={{name: '客服QQ', content: '', left: require('../../images/qq.png')}}
                           callBack={() => {
                           }}/>
+            <Text style={{
+                fontSize: Pixel.getPixel(fontAndColor.LITTLEFONT28),
+                marginHorizontal: Pixel.getPixel(20), marginTop: Pixel.getPixel(10)
+            }}>
+                {this.allData.qq}
+            </Text>
             <View style={{width: width, height: 1, backgroundColor: fontAndColor.COLORA3}}></View>
-            <MineAuthItem data={{name: '说明', content: '', left: require('../../images/leftimage.png')}}
+            <MineAuthItem data={{name: '说明', content: '', left: require('../../images/xie.png')}}
                           callBack={() => {
                           }}/>
+
             <View style={{width: width, height: 1, backgroundColor: fontAndColor.COLORA3}}></View>
             <Text style={{
                 fontSize: Pixel.getPixel(fontAndColor.LITTLEFONT28),

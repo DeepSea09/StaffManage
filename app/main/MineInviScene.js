@@ -26,6 +26,7 @@ import MainScene from "./NavigationScene";
 import TuiJianGongYouScene from "./TuiJianGongYouScene";
 import * as Urls from "../constant/appUrls";
 import {request} from "../utils/RequestUtil";
+import MineAuthItemOne from "./component/MineAuthItemOne";
 
 export default class MineInviScene extends BaseComponent {
 
@@ -95,15 +96,16 @@ export default class MineInviScene extends BaseComponent {
             return (
                 <View style={{alignItems: 'center'}}>
                     <Image style={{
-                        width: width, height: Pixel.getPixel(180), justifyContent: 'center',
+                        width: width, height: Pixel.getPixel(438), justifyContent: 'center',
                         alignItems: 'center', marginTop: Pixel.getTitlePixel(64)
-                    }} source={require('../../images/gytj.jpg')}>
+                    }} source={require('../../images/newgytj.jpg')}>
                     </Image>
-                    <MineAuthItem data={{name: '奖励说明文字', content: '', left: require('../../images/leftimage.png')}}
-                                  callBack={() => {
-                                  }}/>
+                    <MineAuthItemOne
+                        data={{name: '推荐成功上岗后，奖励直接在帐户提现', content: '', left: require('../../images/xie.png')}}
+                        callBack={() => {
+                        }}/>
                     <View style={{width: width, height: 1, backgroundColor: fontAndColor.COLORA3}}></View>
-                    <MineAuthItem data={{name: '其他说明', content: '', left: require('../../images/leftimage.png')}}
+                    <MineAuthItem data={{name: '多推荐，奖励越多！', content: '', left: require('../../images/shu.png')}}
                                   callBack={() => {
                                   }}/>
                     <View style={{width: width, height: 1, backgroundColor: fontAndColor.COLORA3}}></View>
@@ -122,7 +124,7 @@ export default class MineInviScene extends BaseComponent {
                             fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30), color: '#fff'
                             ,
                         }}>推荐工友</Text></TouchableOpacity>
-                    <MineAuthItem data={{name: '我的推荐', content: '', left: require('../../images/leftimage.png')}}
+                    <MineAuthItem data={{name: '我的推荐', content: '', left: require('../../images/shuangren.png')}}
                                   callBack={() => {
                                   }}/>
                     <View style={{width: width, height: 1, backgroundColor: fontAndColor.COLORA3}}></View>

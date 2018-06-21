@@ -52,14 +52,20 @@ export default class PostInfoOneItem extends PureComponent {
                             }}>工厂环境</Text>
                         </View>
                     </View>
-                    <TouchableOpacity onPress={() => {
-                        this.props.callBack();
-                    }} style={{flex: 1, alignItems: 'flex-end', justifyContent: 'center'}}>
-                        <Text style={{
-                            fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
-                            color: 'red', marginRight: Pixel.getPixel(15)
-                        }}>我要进厂</Text>
-                    </TouchableOpacity>
+                    <View  style={{flex: 1, alignItems: 'flex-end', justifyContent: 'center'}}>
+                        <TouchableOpacity onPress={() => {
+                            this.props.callBack();
+                        }} style={{
+                            width: Pixel.getPixel(110), height: Pixel.getPixel(28),
+                            backgroundColor: 'red', borderRadius: 10,
+                            alignItems: 'center', justifyContent: 'center',
+                        }}>
+                            <Text style={{
+                                fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
+                                color: '#fff'
+                            }}>我要进厂</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
 
                 <PostInfoOneTab callBack={(index) => {

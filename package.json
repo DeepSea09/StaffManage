@@ -11,7 +11,6 @@
     "react-native": "0.52.3",
     "react-native-amap3d": "^1.0.0",
     "react-native-gallery": "0.0.17",
-    "react-native-image-picker": "^0.25.7",
     "react-native-image-zoom-viewer": "^1.2.47",
     "react-native-md5": "^1.0.0",
     "react-native-modal-datetime-picker": "^5.1.0",
