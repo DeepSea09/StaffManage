@@ -1,8 +1,8 @@
 /**
  * 开发地址
  */
-export const BASEURL = 'http://hy.cuqucu.com:39010/';
-
+// export const BASEURL = 'http://hy.cuqucu.com:39010/';
+export const BASEURL = 'http://hy.wxqqmy.com:39010/';
 /**
  * 注册
  */

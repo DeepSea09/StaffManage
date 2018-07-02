@@ -4,6 +4,7 @@ var Platform = require('Platform');
 import * as StorageKeyNames from "../constant/storageKeyNames";
 import {all} from '../constant/AllBackLogin';
 import LoginScene from '../login/LoginScene';
+import {NavigationActions, StackActions} from "react-navigation";
 
 const request = (url, method, params, backToLogin) => {
     let loginSuccess = {
@@ -60,12 +61,14 @@ const request = (url, method, params, backToLogin) => {
                             resolve({mjson: responseData, mycode: 1});
                         } else {
                             if (responseData.msg == 'token已过期') {
-                                global.token = '';
+                                global.token='';
                                 StorageUtil.mSetItem(StorageKeyNames.TOKEN, '');
                                 if (all) {
-                                    all.immediatelyResetRouteStack([{
-                                        ...loginSuccess
-                                    }])
+                                    const resetAction = StackActions.reset({
+                                        index: 0,
+                                        actions: [NavigationActions.navigate({routeName: name})]
+                                    });
+                                    this.props.navigation.dispatch(resetAction);
                                 }
                             } else {
                                 reject({mycode: responseData.code, mjson: responseData});

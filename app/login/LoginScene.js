@@ -130,15 +130,22 @@ export default class LoginScene extends BaseComponent {
                 </TouchableOpacity>
             </View>
             <View style={{
-                width: Pixel.getPixel(115), height: Pixel.getPixel(115),
-                borderRadius: 100, borderWidth: 1, borderColor: '#fff', position: 'absolute',
+                width: Pixel.getPixel(117), height: Pixel.getPixel(117),
+                borderRadius: 100, borderWidth: 1, borderColor: '#ff0', position: 'absolute',
                 top: Pixel.getPixel(140 - 57), left: width / 2 - Pixel.getPixel(115) / 2,
-                justifyContent: 'flex-end', alignItems: 'flex-end'
+                justifyContent: 'center', alignItems: 'center'
             }}>
-                <Image source={require('../../images/newlogo.png')} style={{
-                    width: Pixel.getPixel(109), height: Pixel.getPixel(109),
-                    borderRadius: 100
-                }}></Image>
+                <View style={{
+                    width: Pixel.getPixel(111), height: Pixel.getPixel(111),
+                    borderRadius: 100,
+                    justifyContent: 'center', alignItems: 'center', backgroundColor: '#ff0'
+                }}>
+                    <Image source={require('../../images/newlogo.png')} style={{
+                        width: Pixel.getPixel(109), height: Pixel.getPixel(109),
+                        borderRadius: 100
+                    }}></Image>
+                </View>
+
             </View>
             <LoginPow ref="loginpow" callBack={(name) => {
                 this.toReset(name);
@@ -150,8 +157,8 @@ export default class LoginScene extends BaseComponent {
         this.props.screenProps.showModal(true);
         let maps = {
             phone: this.loginData.phone,
-            yzm:this.loginData.msg,
-            name:name
+            yzm: this.loginData.msg,
+            name: name
         };
         request(Urls.REGISTER, 'Post', maps)
             .then((response) => {

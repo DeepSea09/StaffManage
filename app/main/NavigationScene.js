@@ -174,15 +174,14 @@ export default class NavigationScene extends BaseComponent {
 
                 }} activeOpacity={1} style={{
                     position: 'absolute',
-                    bottom: Pixel.getPixel(3),
-                    width: Pixel.getPixel(52),
-                    height: Pixel.getPixel(52),
-                    left: width / 2 - Pixel.getPixel(46) / 2
+                    bottom: Pixel.getPixel(7),
+                    left: width / 2 - Pixel.getPixel(57) / 2
                 }}>
-                    <Image source={require('../../images/newcenter.png')}
+                    <Image source={require('../../images/yuanbaoimage.png')}
                            style={{
-                               width: Pixel.getPixel(52),
-                               height: Pixel.getPixel(52)
+                               resizeMode: 'stretch',
+                               width: Pixel.getPixel(57),
+                               height: Pixel.getPixel(37)
                            }}/>
                 </TouchableOpacity>
             </View>
