@@ -110,7 +110,7 @@ export default class ChildMineInviScene extends BaseComponent {
                                   }}/>
                     <View style={{width: width, height: 1, backgroundColor: fontAndColor.COLORA3}}></View>
                     <TouchableOpacity onPress={() => {
-                        this.props.toNextPage({
+                        this.toNextPage({
                             name: 'TuiJianGongYouScene',
                             component: TuiJianGongYouScene,
                             params: {}

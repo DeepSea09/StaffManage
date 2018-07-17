@@ -23,6 +23,7 @@ import * as fontAndColor from '../constant/fontAndColor';
 import MineAuthItem from "./component/MineAuthItem";
 import NavigationView from '../component/AllNavigationView';
 import TrainItem from "./component/TrainItem";
+import WebScene from "./WebScene";
 
 export default class WelfareScene extends BaseComponent {
 
@@ -69,7 +70,15 @@ export default class WelfareScene extends BaseComponent {
                     </View>
                 </View>
                 <View style={{flexDirection: 'row', marginTop: Pixel.getPixel(20)}}>
-                    <View style={{
+                    <TouchableOpacity onPress={()=>{
+                        this.toNextPage({
+                            name: 'WebScene',
+                            component: WebScene,
+                            params: {
+                                webUrl:'http://wx.wxqqmy.com/app/./index.php?i=9&c=entry&eid=143'
+                            }
+                        })
+                    }} style={{
                         width: Pixel.getPixel(150), height: Pixel.getPixel(40),
                         backgroundColor: fontAndColor.COLORB0, borderRadius: 5, justifyContent: 'center',
                         alignItems: 'center'
@@ -78,7 +87,7 @@ export default class WelfareScene extends BaseComponent {
                             fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
                             color: '#fff'
                         }}>活动</Text>
-                    </View>
+                    </TouchableOpacity>
                     <View style={{
                         width: Pixel.getPixel(150), height: Pixel.getPixel(40),
                         backgroundColor: fontAndColor.COLORB0, borderRadius: 5, justifyContent: 'center',

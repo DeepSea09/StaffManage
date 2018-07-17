@@ -17,6 +17,7 @@ import WelfareScene from './main/WelfareScene'
 import LoginScene from './login/LoginScene'
 import ChildMineInviScene from "./main/ChildMineInviScene";
 import WelcomScene from "./main/WelcomScene";
+import WebScene from "./main/WebScene";
 
 export default App = StackNavigator({
         RootScene: {screen: RootScene},
@@ -36,6 +37,7 @@ export default App = StackNavigator({
         LoginScene: {screen: LoginScene},
         ChildMineInviScene: {screen: ChildMineInviScene},
         WelcomScene: {screen: WelcomScene},
+        WebScene: {screen: WebScene}
     },
     {
         initialRouteName: 'RootScene',
