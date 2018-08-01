@@ -18,19 +18,43 @@ import BaseComponent from '../component/BaseComponent';
 let {height, width} = Dimensions.get('window');
 
 import Pixel from '../utils/PixelUtil'
-
+import {request} from "../utils/RequestUtil";
 import * as fontAndColor from '../constant/fontAndColor';
 import MineAuthItem from "./component/MineAuthItem";
 import NavigationView from '../component/AllNavigationView';
 import TrainItem from "./component/TrainItem";
 import WebScene from "./WebScene";
+import * as Urls from "../constant/appUrls";
 
 export default class WelfareScene extends BaseComponent {
 
     constructor(props) {
         super(props);
-    }
 
+    }
+    getData = (value) => {
+        this.props.screenProps.showModal(true);
+        let maps = {key:value};
+        request(Urls.DICTVALUE, 'Post', maps)
+            .then((response) => {
+                    this.props.screenProps.showModal(false);
+                    console.log(response.mjson.data[0].value);
+                    console.log("\"null\"");
+                    if(!this.isNull(response.mjson.data[0].value)&&response.mjson.data[0].value!="\"null\""){
+                        this.toNextPage({
+                            name: 'WebScene',
+                            component: WebScene,
+                            params: {
+                                webUrl:response.mjson.data[0].value
+                            }
+                        })
+                    }
+
+                },
+                (error) => {
+                    this.props.screenProps.showModal(false);
+                });
+    }
 
     render() {
         return (<View style={{flex: 1, backgroundColor: '#fff'}}>
@@ -48,7 +72,9 @@ export default class WelfareScene extends BaseComponent {
                 justifyContent: 'center', alignItems: 'center'
             }}>
                 <View style={{flexDirection: 'row'}}>
-                    <View style={{
+                    <TouchableOpacity onPress={()=>{
+                        this.getData('hd01');
+                    }} style={{
                         width: Pixel.getPixel(150), height: Pixel.getPixel(40),
                         backgroundColor: fontAndColor.COLORB0, borderRadius: 5, justifyContent: 'center',
                         alignItems: 'center'
@@ -57,8 +83,10 @@ export default class WelfareScene extends BaseComponent {
                             fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
                             color: '#fff'
                         }}>打卡</Text>
-                    </View>
-                    <View style={{
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{
+                        this.getData('hd02');
+                    }} style={{
                         width: Pixel.getPixel(150), height: Pixel.getPixel(40),
                         backgroundColor: fontAndColor.COLORB0, borderRadius: 5, justifyContent: 'center',
                         alignItems: 'center', marginLeft: Pixel.getPixel(20)
@@ -67,17 +95,11 @@ export default class WelfareScene extends BaseComponent {
                             fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
                             color: '#fff'
                         }}>任务</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={{flexDirection: 'row', marginTop: Pixel.getPixel(20)}}>
                     <TouchableOpacity onPress={()=>{
-                        this.toNextPage({
-                            name: 'WebScene',
-                            component: WebScene,
-                            params: {
-                                webUrl:'http://wx.wxqqmy.com/app/./index.php?i=9&c=entry&eid=143'
-                            }
-                        })
+                        this.getData('hd03');
                     }} style={{
                         width: Pixel.getPixel(150), height: Pixel.getPixel(40),
                         backgroundColor: fontAndColor.COLORB0, borderRadius: 5, justifyContent: 'center',
@@ -88,7 +110,9 @@ export default class WelfareScene extends BaseComponent {
                             color: '#fff'
                         }}>活动</Text>
                     </TouchableOpacity>
-                    <View style={{
+                    <TouchableOpacity onPress={()=>{
+                        this.getData('hd04');
+                    }} style={{
                         width: Pixel.getPixel(150), height: Pixel.getPixel(40),
                         backgroundColor: fontAndColor.COLORB0, borderRadius: 5, justifyContent: 'center',
                         alignItems: 'center', marginLeft: Pixel.getPixel(20)
@@ -97,10 +121,12 @@ export default class WelfareScene extends BaseComponent {
                             fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
                             color: '#fff'
                         }}>免费硬件</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={{flexDirection: 'row', marginTop: Pixel.getPixel(20)}}>
-                    <View style={{
+                    <TouchableOpacity onPress={()=>{
+                        this.getData('hd05');
+                    }} style={{
                         width: Pixel.getPixel(150), height: Pixel.getPixel(40),
                         backgroundColor: fontAndColor.COLORB0, borderRadius: 5, justifyContent: 'center',
                         alignItems: 'center'
@@ -109,8 +135,10 @@ export default class WelfareScene extends BaseComponent {
                             fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
                             color: '#fff'
                         }}>离职礼包</Text>
-                    </View>
-                    <View style={{
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{
+                        this.getData('hd06');
+                    }} style={{
                         width: Pixel.getPixel(150), height: Pixel.getPixel(40),
                         backgroundColor: fontAndColor.COLORB0, borderRadius: 5, justifyContent: 'center',
                         alignItems: 'center', marginLeft: Pixel.getPixel(20)
@@ -119,7 +147,7 @@ export default class WelfareScene extends BaseComponent {
                             fontSize: Pixel.getPixel(fontAndColor.BUTTONFONT30),
                             color: '#fff'
                         }}>公益众筹</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
             <MineAuthItem data={{name: '福利说明', content: '', left: require('../../images/labas.png')}}

@@ -16,6 +16,7 @@ import {
     InteractionManager,
     DeviceEventEmitter,
     TouchableWithoutFeedback,
+    Linking
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -28,6 +29,10 @@ import PostListScene from './PostScene';
 import MineInviScene from './MineInviScene';
 import MainScene from './MainScene';
 import LoginScene from '../login/LoginScene';
+import {request} from "../utils/RequestUtil";
+import * as Urls from "../constant/appUrls";
+import PostPow from "./component/PostPow";
+import UPDataPow from "./component/UPDataPow";
 let tabArray = [];
 
 export class tableItemInfo {
@@ -44,7 +49,7 @@ export class tableItemInfo {
 
 }
 ;
-
+const version = '1.0.0';
 
 export default class NavigationScene extends BaseComponent {
 
@@ -65,6 +70,7 @@ export default class NavigationScene extends BaseComponent {
      */
     constructor(props) {
         super(props);
+        this.updataurl='';
         this.state = {
             selectedTab: 'findwork',
             renderPlaceholderOnly: 'blank',
@@ -99,8 +105,22 @@ export default class NavigationScene extends BaseComponent {
              require('../../images/bottomleftimage.png'),
             require('../../images/unselectright.png'), this.getTopView('mine')));
         this.setState({renderPlaceholderOnly: 'success'});
+        this.getUPData();
     }
+    getUPData=()=>{
+        let maps = {};
+        request(Urls.UPGRADE, 'Post', maps)
+            .then((response) => {
+                    console.log(response);
+                    if(response.mjson.data[0].curVersion!==version){
+                        this.updataurl=response.mjson.data[0].flexJson;
+                        this.refs.postpow.changeShow(response.mjson.data[0].upgradeDesc);
+                    }
+                },
+                (error) => {
 
+                });
+    }
     _renderPlaceholderView() {
         return (
             <View style={{width: width, height: height, backgroundColor: fontAndClolr.COLORA3}}>
@@ -184,6 +204,16 @@ export default class NavigationScene extends BaseComponent {
                                height: Pixel.getPixel(37)
                            }}/>
                 </TouchableOpacity>
+
+                <UPDataPow ref='postpow' callBack={()=>{
+                    console.log('33333333333333333');
+                    if (Platform.OS === 'android') {
+                        console.log('123123123');
+                        Linking.openURL(this.updataurl);
+                    } else {
+                        NativeModules.SystomTools.openAppaleShop();
+                    }
+                }}/>
             </View>
         );
     }

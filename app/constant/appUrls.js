@@ -73,3 +73,13 @@ export const OPEN_UPLOAD = BASEURL + 'api/open/uploadBase64';
  * 保存个人信息
  */
 export const EMPLOYEE_SAVE = BASEURL + 'api/recruit/employee/save';
+
+/**
+ * 会员福利
+ */
+export const DICTVALUE = BASEURL + 'api/open/dictValue';
+
+/**
+ * 获取更新信息
+ */
+export const UPGRADE = BASEURL + 'api/open/app/upgrade';
